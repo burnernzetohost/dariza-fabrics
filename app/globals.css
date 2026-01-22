@@ -12,15 +12,34 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* Dark mode removed to enforce light theme consistent with other pages */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+
+/* app/globals.css */
+
+@layer utilities {
+  .font-script {
+    font-family: var(--font-lush-script);
+  }
+
+  .font-lush {
+    font-family: var(--font-lush-reg);
+  }
+
+  .font-swirl {
+    font-family: var(--font-lswirl);
+  }
 }
