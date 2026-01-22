@@ -1,8 +1,12 @@
 import { Pool } from 'pg';
 
-// This creates a "pool" of connections that your app can reuse
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: 5432, // or 6543 for Supabase Transaction mode
+    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
 });
 
 export default pool;
