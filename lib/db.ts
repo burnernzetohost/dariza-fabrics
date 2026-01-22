@@ -1,12 +1,8 @@
 import { Pool } from 'pg';
 
 const pool = new Pool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: 5432, // or 6543 for Supabase Transaction mode
-    ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }, // Essential for Supabase
 });
 
 export default pool;
