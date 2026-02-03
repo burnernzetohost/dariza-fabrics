@@ -6,6 +6,8 @@ import { CheckCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
+export const dynamic = 'force-dynamic';
+
 export default function CheckoutSuccessPage() {
     const searchParams = useSearchParams();
     const orderId = searchParams.get('order_id');

@@ -8,6 +8,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { BarChart3, Plus, ShoppingBag, X, Menu } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 // Orders Section Component
 function OrdersSection() {
     const [orders, setOrders] = useState<any[]>([]);

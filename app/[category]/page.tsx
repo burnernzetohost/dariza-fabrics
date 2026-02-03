@@ -4,6 +4,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import pool from '@/lib/db'; // Connect to DB
 
+export const dynamic = 'force-dynamic';
+
 // --- Your Helper Functions (Kept Exactly the Same) ---
 const getCategoryTitle = (cat: string) => {
     if (!cat) return 'Collection';

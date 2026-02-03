@@ -2,6 +2,8 @@ import pool from '@/lib/db';
 import Navbar from '@/components/Navbar';
 import ProductClient from '@/components/ProductClient';
 
+export const dynamic = 'force-dynamic';
+
 // Helper to sanitize data (prevents "Date Object" crashes)
 const sanitizeProduct = (row: any) => {
     if (!row) return null;

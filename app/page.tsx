@@ -7,6 +7,8 @@ import WinterSale from "@/components/WinterSale";
 import NewArrivals from "@/components/NewArrivals";
 import Footer from "@/components/Footer";
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-[#DCf9f1]">

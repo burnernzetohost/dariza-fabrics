@@ -6,6 +6,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useState, useEffect } from 'react';
 
+export const dynamic = 'force-dynamic';
+
 interface Product {
     id: string;
     name: string;
