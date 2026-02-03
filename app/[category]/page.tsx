@@ -28,6 +28,31 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
     const params = await props.params;
     const category = params.category;
 
+    // List of valid categories
+    const validCategories = ['coats', 'shawls', 'saree'];
+
+    // Check if category is valid
+    if (!validCategories.includes(category.toLowerCase())) {
+        return (
+            <main className="min-h-screen flex flex-col bg-white">
+                <Navbar />
+                <div className="flex-grow flex items-center justify-center">
+                    <div className="text-center">
+                        <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
+                        <p className="text-xl text-gray-600 mb-8">Page not found</p>
+                        <Link
+                            href="/"
+                            className="inline-block bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300"
+                        >
+                            Back to Home
+                        </Link>
+                    </div>
+                </div>
+                <Footer />
+            </main>
+        );
+    }
+
     // 2. Fetch Real Data from Database
     const { rows: categoryProducts } = await pool.query(
         `SELECT * FROM products WHERE category = $1`,

@@ -1,5 +1,5 @@
 const { Pool } = require('pg');
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 
 // 1. Connect directly
 const pool = new Pool({
@@ -10,49 +10,54 @@ async function main() {
     console.log('🌱 Starting Seed...');
 
     try {
-        // 2. Create the Table
+        // 2. Drop and Create the Table
         // Note: We use TEXT[] for arrays in Postgres
+        await pool.query('DROP TABLE IF EXISTS products CASCADE');
+        console.log('Dropped existing products table');
+
         await pool.query(`
-      CREATE TABLE IF NOT EXISTS products (
+      CREATE TABLE products (
         id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
         category TEXT NOT NULL,
         description TEXT,
         price INTEGER NOT NULL,
+        sale_price INTEGER,
         images TEXT[],
-        sizes TEXT[]
+        sizes TEXT[],
+        details TEXT[],
+        new_arrival BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
+        console.log('Created products table');
 
-        // 3. Clear old data
-        await pool.query('DELETE FROM products');
+        // 3. Clear old data (not needed since we dropped the table)
+        // await pool.query('DELETE FROM products');
 
-        // 4. Define Data
+        // 4. Define Data - CORRECT PRICES FROM USER
         const products = [
-            // COATS (Heirloom Collection: 3800)
-            ['midnight-indigo-noir', 'coats', 'Midnight Indigo Noir', 3800, 'A timeless classic crafted from premium wool blend.', ['/coats/coat3.jpeg'], ['S', 'M', 'L', 'XL']],
-            ['imperial-merlot', 'coats', 'Imperial Merlot', 3800, 'Rich and elegant, adding a pop of color to your winter wardrobe.', ['/coats/coat1.jpeg'], ['S', 'M', 'L']],
-            ['imperial-garnet-rouge', 'coats', 'Imperial Garnet Rouge', 3800, 'Experience luxury with the Imperial Garnet Rouge.', ['/coats/coat2.jpeg'], ['M', 'L', 'XL']],
-            ['verdant-imperial-moss', 'coats', 'Verdant Imperial Moss', 3800, 'Connect with nature in the Verdant Imperial Moss coat.', ['/coats/coat4.jpeg'], ['S', 'M', 'L']],
+            // COATS - ALL HEIRLOOM COATS ARE 3800
+            ['midnight-indigo-noir', 'Midnight Indigo Noir', 'coats', 'A timeless classic, the Midnight Indigo Noir coat is crafted from premium wool blend, offering both warmth and sophistication. Perfect for evening wear.', 3800, null, ['/coats/coat3.jpeg'], ['S', 'M', 'L', 'XL'], ['Wool Blend', 'Satin Lining', 'Dry Clean Only'], true],
+            ['imperial-merlot', 'Imperial Merlot', 'coats', 'Rich and elegant, the Imperial Merlot coat adds a pop of color to your winter wardrobe. Tailored fit for a sharp silhouette.', 3800, null, ['/coats/coat1.jpeg'], ['S', 'M', 'L'], ['Premium Cotton Blend', 'Button Closure', 'Machine Washable'], true],
+            ['imperial-garnet-rouge', 'Imperial Garnet Rouge', 'coats', 'Experience luxury with the Imperial Garnet Rouge. Designed for the modern individual who values style and comfort.', 3800, null, ['/coats/coat2.jpeg'], ['M', 'L', 'XL'], ['100% Wool', 'Hand Stitched', 'Dry Clean Only'], false],
+            ['verdant-imperial-moss', 'Verdant Imperial Moss', 'coats', 'Connect with nature in the Verdant Imperial Moss coat. Its unique hue and texture make it a standout piece.', 3800, null, ['/coats/coat4.jpeg'], ['S', 'M', 'L'], ['Textured Fabric', 'Wide Lapels', 'Dry Clean Recommended'], false],
 
             // SHAWLS
-            ['pashmina-black-shawl', 'shawls', 'Pashmina Black Shawl', 15000, 'An exquisite black pashmina shawl, hand-woven to perfection.', ['/shawl/shawl1.jpeg'], ['One Size']],
-            ['pashmina-red-shawl', 'shawls', 'Pashmina Red Shawl', 16000, 'Vibrant and warm, a testament to Kashmiri craftsmanship.', ['/shawl/shawl2.jpeg'], ['One Size']],
+            ['pashmina-black-shawl', 'Pashmina Black Shawl', 'shawls', 'An exquisite black pashmina shawl, hand-woven to perfection. A versatile accessory for any occasion.', 15000, null, ['/shawl/shawl1.jpeg'], ['One Size'], ['100% Pashmina', 'Hand Woven', 'Dry Clean Only'], true],
+            ['pashmina-red-shawl', 'Pashmina Red Shawl', 'shawls', 'Vibrant and warm, this red pashmina shawl is a testament to Kashmiri craftsmanship.', 16000, null, ['/shawl/shawl2.jpeg'], ['One Size'], ['Pashmina Blend', 'Intricate Embroidery', 'Dry Clean Only'], true],
 
             // SAREES
-            ['pashmina-silk-saree', 'saree', 'Pashmina Silk Saree', 25000, 'A stunning blend of pashmina and silk.', ['/saree/saree1.jpeg'], ['Free Size']],
-
-            // SUITS
-            ['kalamkari-suit-royal', 'suits', 'Royal Kalamkari Suit', 13500, 'Traditional hand-painted Kalamkari art on premium fabric.', ['/suits/suit1.jpeg'], ['S', 'M', 'L', 'XL']]
+            ['pashmina-silk-saree', 'Pashmina Silk Saree', 'saree', 'A stunning blend of pashmina and silk, this saree drapes elegantly and offers unmatched comfort.', 25000, null, ['/saree/saree1.jpeg'], ['Free Size'], ['Silk Pashmina Blend', 'Zari Border', 'Dry Clean Only'], false]
         ];
 
         // 5. Insert Loop
         for (const product of products) {
             await pool.query(
-                'INSERT INTO products (id, category, name, price, description, images, sizes) VALUES ($1, $2, $3, $4, $5, $6, $7)',
+                'INSERT INTO products (id, name, category, description, price, sale_price, images, sizes, details, new_arrival) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
                 product
             );
-            console.log(`Inserted: ${product[2]}`);
+            console.log(`Inserted: ${product[1]}`);
         }
 
         console.log('✅ Seeding finished successfully.');

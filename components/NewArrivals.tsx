@@ -1,53 +1,77 @@
 'use client';
 import { useCart } from '../context/CartContext';
 import { ShoppingBag } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface Product {
+  id: string;
   name: string;
   price: number;
-  sale: number | null;
-  img: string;
+  sale_price: number | null;
+  images: string[];
+  category: string;
 }
-
-const products: Product[] = [
-  { name: 'Midnight Indigo Noir', price: 6999.99, sale: 5999.99, img: '/coats/coat3.jpeg' },
-  { name: 'Pashmina Black Shawl', price: 7999.99, sale: null, img: '/shawl/shawl1.jpeg' },
-  { name: 'Imperial Merlot', price: 7999.99, sale: null, img: '/coats/coat1.jpeg' },
-  { name: 'Pashmina Red Shawl', price: 8999.99, sale: null, img: '/shawl/shawl2.jpeg' },
-];
 
 export default function NewArrivals() {
   const { addToCart } = useCart();
   const [addingId, setAddingId] = useState<string | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { ref, isVisible } = useScrollAnimation();
+
+  useEffect(() => {
+    async function fetchNewArrivals() {
+      try {
+        const response = await fetch('/api/products/new-arrivals');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching new arrivals:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchNewArrivals();
+  }, []);
 
   const handleAddToCart = (product: Product) => {
-    setAddingId(product.name);
+    setAddingId(product.id);
     addToCart({
       name: product.name,
       price: product.price,
-      salePrice: product.sale || undefined,
-      image: product.img,
+      salePrice: product.sale_price || undefined,
+      image: product.images[0],
     });
 
     // Reset loading state after a brief delay
     setTimeout(() => setAddingId(null), 500);
   };
 
+  if (loading) {
+    return (
+      <section ref={ref} className="py-20 max-w-7xl mx-auto px-4">
+        <h2 className="text-center font-serif text-4xl mb-12 text-[#012d20]">Newest Arrivals</h2>
+        <div className="text-center text-gray-500">Loading...</div>
+      </section>
+    );
+  }
+
   return (
-    <section className="py-20 max-w-7xl mx-auto px-4">
+    <section ref={ref} className={`py-20 max-w-7xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
       <h2 className="text-center font-serif text-4xl mb-12 text-[#012d20]">Newest Arrivals</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {products.map((product) => (
-          <div key={product.name} className="group relative">
+        {products.map((product, index) => (
+          <div key={product.id} className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`} style={{transitionDelay: isVisible ? `${index * 75}ms` : '0ms'}}>
             <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4 rounded-sm">
               <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] px-2 py-1 uppercase tracking-wider z-10">
-                {product.sale ? 'Sale' : 'New'}
+                {product.sale_price ? 'Sale' : 'New'}
               </span>
-              <Link href="/coats/midnight-indigo-noir">
+              <Link href={`/${product.category}/${product.id}`}>
                 <img
-                  src={product.img}
+                  src={product.images[0]}
                   alt={product.name}
                   className="w-full h-full object-cover hover:opacity-90 transition duration-500 group-hover:scale-105"
                 />
@@ -66,12 +90,12 @@ export default function NewArrivals() {
             <div className="text-center cursor-pointer">
               <h3 className="text-xs font-medium uppercase tracking-wide text-gray-800 hover:text-black">{product.name}</h3>
               <p className="mt-1 text-sm text-gray-500">
-                {product.sale && <span className="text-red-500 mr-2">₹{product.sale}</span>}
-                <span className={product.sale ? 'line-through text-gray-300' : ''}>₹{product.price}</span>
+                {product.sale_price && <span className="text-red-500 mr-2">₹{product.sale_price}</span>}
+                <span className={product.sale_price ? 'line-through text-gray-300' : ''}>₹{product.price}</span>
               </p>
             </div>
 
-            {addingId === product.name && (
+            {addingId === product.id && (
               <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#012d20]/90 text-white text-xs px-3 py-1 rounded-full pointer-events-none">
                 Added!
               </div>

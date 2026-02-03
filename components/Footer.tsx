@@ -29,7 +29,7 @@ export default function Footer() {
 
         <div className="flex gap-6">
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/darizafabrics/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-[#DCf9f1]/70 transition"

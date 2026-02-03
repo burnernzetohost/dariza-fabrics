@@ -12,7 +12,7 @@ export default function AboutPage() {
                 {/* Header Section */}
                 <div className="bg-[#012d20] py-20 text-center px-4">
                     <h1 className="font-lush text-5xl md:text-7xl mb-6 text-[#DCf9f1]">
-                        DARZIA FABRICS
+                        DARIZA FABRICS
                     </h1>
                     <p className="font-script text-2xl text-[#DCf9f1]/80 max-w-2xl mx-auto">
                         Our Story.

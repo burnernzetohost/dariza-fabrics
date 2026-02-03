@@ -1,6 +1,12 @@
+'use client';
+
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
 export default function WinterSale() {
+  const { ref, isVisible } = useScrollAnimation();
+
   return (
-    <section className="bg-[#012d20] py-20 px-4 text-center">
+    <section ref={ref} className={`bg-[#012d20] py-20 px-4 text-center transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`}>
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-center gap-12">
         <h2 className="font-serif text-5xl md:text-6xl text-[#DCf9f1] leading-tight">
           WINTER <br /> <span className="font-bold">SALE</span>

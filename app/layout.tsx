@@ -33,7 +33,7 @@ const swirl = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "DARZIA FABRICS",
+  title: "DARIZA FABRICS",
   description: "Fresh New Arrivals",
 };
 
