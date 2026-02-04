@@ -38,7 +38,10 @@ export async function POST(request: Request) {
             shipping_address,
             items,
             total_amount,
-            special_notes
+            special_notes,
+            payment_id,
+            razorpay_order_id,
+            payment_status = 'Pending'
         } = body;
 
         // Validate required fields
@@ -51,9 +54,9 @@ export async function POST(request: Request) {
 
         // Insert order into database
         const result = await pool.query(
-            `INSERT INTO orders (user_id, customer_name, customer_email, customer_phone, customer_address, shipping_address, items, total_amount, payment_status, order_status, special_notes)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-             RETURNING id, user_id, customer_name, customer_email, customer_phone, customer_address, shipping_address, items, total_amount, payment_status, order_status, special_notes, created_at, updated_at`,
+            `INSERT INTO orders (user_id, customer_name, customer_email, customer_phone, customer_address, shipping_address, items, total_amount, payment_status, order_status, special_notes, payment_id, razorpay_order_id)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+             RETURNING id, user_id, customer_name, customer_email, customer_phone, customer_address, shipping_address, items, total_amount, payment_status, order_status, special_notes, payment_id, razorpay_order_id, created_at, updated_at`,
             [
                 user_id || null,
                 customer_name,
@@ -63,9 +66,11 @@ export async function POST(request: Request) {
                 shipping_address,
                 JSON.stringify(items),
                 total_amount,
-                'Paid',
-                'Confirmed',
-                special_notes || null
+                payment_status,
+                payment_status === 'Paid' ? 'Confirmed' : 'Pending',
+                special_notes || null,
+                payment_id || null,
+                razorpay_order_id || null
             ]
         );
 

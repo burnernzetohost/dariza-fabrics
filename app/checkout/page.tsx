@@ -39,7 +39,7 @@ export default function CheckoutPage() {
 
         try {
             // Validate required fields
-            if (!formData.customer_name || !formData.customer_email || !formData.customer_phone || 
+            if (!formData.customer_name || !formData.customer_email || !formData.customer_phone ||
                 !formData.customer_address || !formData.shipping_address) {
                 throw new Error('Please fill in all required fields');
             }
@@ -57,38 +57,128 @@ export default function CheckoutPage() {
                 images: [item.image]
             }));
 
-            // Create order
-            const response = await fetch('/api/orders', {
+            // Step 1: Create Razorpay order
+            const razorpayOrderResponse = await fetch('/api/razorpay', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    user_id: session?.user?.email ? (session.user as any).id : null,
-                    customer_name: formData.customer_name,
-                    customer_email: formData.customer_email,
-                    customer_phone: formData.customer_phone,
-                    customer_address: formData.customer_address,
-                    shipping_address: formData.shipping_address,
-                    items: orderItems,
-                    total_amount: subtotal,
-                    special_notes: formData.special_notes || null
+                    amount: subtotal,
+                    currency: 'INR',
+                    receipt: `receipt_${Date.now()}`,
+                    notes: {
+                        customer_name: formData.customer_name,
+                        customer_email: formData.customer_email,
+                    }
                 })
             });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to create order');
+            if (!razorpayOrderResponse.ok) {
+                const errorData = await razorpayOrderResponse.json();
+                throw new Error(errorData.message || 'Failed to create payment order');
             }
 
-            const orderData = await response.json();
-            
-            // Clear cart after successful order
-            clearCart();
-            
-            // Redirect to success page
-            router.push(`/checkout/success?order_id=${orderData.order.id}`);
+            const razorpayOrderData = await razorpayOrderResponse.json();
+
+            // Step 2: Initialize Razorpay checkout
+            const options = {
+                key: razorpayOrderData.key_id,
+                amount: razorpayOrderData.amount,
+                currency: razorpayOrderData.currency,
+                name: 'Dariza Fabrics',
+                description: 'Purchase from Dariza Fabrics',
+                order_id: razorpayOrderData.order_id,
+                prefill: {
+                    name: formData.customer_name,
+                    email: formData.customer_email,
+                    contact: formData.customer_phone,
+                },
+                theme: {
+                    color: '#012d20',
+                },
+                handler: async function (response: any) {
+                    try {
+                        // Step 3: Verify payment
+                        const verifyResponse = await fetch('/api/razorpay', {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_signature: response.razorpay_signature,
+                            })
+                        });
+
+                        if (!verifyResponse.ok) {
+                            throw new Error('Payment verification failed');
+                        }
+
+                        const verifyData = await verifyResponse.json();
+
+                        if (verifyData.success) {
+                            // Step 4: Create order in database with payment details
+                            const orderResponse = await fetch('/api/orders', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    user_id: session?.user?.email ? (session.user as any).id : null,
+                                    customer_name: formData.customer_name,
+                                    customer_email: formData.customer_email,
+                                    customer_phone: formData.customer_phone,
+                                    customer_address: formData.customer_address,
+                                    shipping_address: formData.shipping_address,
+                                    items: orderItems,
+                                    total_amount: subtotal,
+                                    special_notes: formData.special_notes || null,
+                                    payment_id: response.razorpay_payment_id,
+                                    razorpay_order_id: response.razorpay_order_id,
+                                    payment_status: 'Paid'
+                                })
+                            });
+
+                            if (!orderResponse.ok) {
+                                const errorData = await orderResponse.json();
+                                throw new Error(errorData.message || 'Failed to create order');
+                            }
+
+                            const orderData = await orderResponse.json();
+
+                            // Clear cart after successful order
+                            clearCart();
+
+                            // Redirect to success page
+                            router.push(`/checkout/success?order_id=${orderData.order.id}`);
+                        } else {
+                            throw new Error('Payment verification failed');
+                        }
+                    } catch (err) {
+                        setError(err instanceof Error ? err.message : 'Payment processing failed');
+                        setLoading(false);
+                    }
+                },
+                modal: {
+                    ondismiss: function () {
+                        setError('Payment cancelled');
+                        setLoading(false);
+                    }
+                }
+            };
+
+            // Load Razorpay script and open checkout
+            const script = document.createElement('script');
+            script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+            script.async = true;
+            script.onload = () => {
+                const rzp = new (window as any).Razorpay(options);
+                rzp.open();
+            };
+            script.onerror = () => {
+                setError('Failed to load payment gateway. Please try again.');
+                setLoading(false);
+            };
+            document.body.appendChild(script);
+
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');
-        } finally {
             setLoading(false);
         }
     };

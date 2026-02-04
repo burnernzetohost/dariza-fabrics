@@ -35,6 +35,12 @@ const swirl = localFont({
 export const metadata: Metadata = {
   title: "DARIZA FABRICS",
   description: "Fresh New Arrivals",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
 };
 
 export default function RootLayout({
@@ -44,6 +50,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="theme-color" content="#ffffff" />
+      </head>
       {/* CRITICAL CHECK:
          Ensure these variables match exactly what is in your tailwind.config.ts 
       */}

@@ -6,7 +6,7 @@ import React from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { BarChart3, Plus, ShoppingBag, X, Menu } from 'lucide-react';
+import { BarChart3, Plus, ShoppingBag, X, Menu, Image } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -647,7 +647,7 @@ function AddProductForm() {
         newArrival: false,
         images: [] as File[]
     });
-    const [categories, setCategories] = useState<string[]>(['coats', 'shawls', 'sarees']);
+    const [categories, setCategories] = useState<string[]>([]);
     const [showCustomCategory, setShowCustomCategory] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -660,7 +660,7 @@ function AddProductForm() {
                 const response = await fetch('/api/categories');
                 if (response.ok) {
                     const data = await response.json();
-                    setCategories(data.categories || ['coats', 'shawls', 'sarees']);
+                    setCategories(data.categories || []);
                 }
             } catch (err) {
                 console.error('Error fetching categories:', err);
@@ -780,7 +780,7 @@ function AddProductForm() {
             const productData = {
                 id: productId,
                 name: formData.name,
-                category: formData.category,
+                category: formData.category.toLowerCase().trim(),
                 description: formData.description,
                 price: parseInt(formData.price),
                 sale_price: formData.salePrice ? parseInt(formData.salePrice) : null,
@@ -891,10 +891,10 @@ function AddProductForm() {
                                 value={formData.customCategory}
                                 onChange={(e) => setFormData(prev => ({
                                     ...prev,
-                                    customCategory: e.target.value.toLowerCase().trim(),
-                                    category: e.target.value.toLowerCase().trim()
+                                    customCategory: e.target.value,
+                                    category: e.target.value
                                 }))}
-                                placeholder="Enter new category name"
+                                placeholder="Enter new category name (e.g., Winter Coats)"
                                 className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
                                 required
                             />
@@ -1050,6 +1050,243 @@ function AddProductForm() {
     );
 }
 
+// Hero Images Section Component
+function HeroImagesSection() {
+    const [heroImages, setHeroImages] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [uploading, setUploading] = useState(false);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [previewUrl, setPreviewUrl] = useState<string>('');
+
+    React.useEffect(() => {
+        fetchHeroImages();
+    }, []);
+
+    const fetchHeroImages = async () => {
+        try {
+            setLoading(true);
+            const response = await fetch('/api/hero-images');
+            if (response.ok) {
+                const data = await response.json();
+                setHeroImages(data);
+            }
+        } catch (err) {
+            console.error('Error fetching hero images:', err);
+            setError('Failed to load hero images');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            // Validate file type
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+            if (!validTypes.includes(file.type)) {
+                setError('Invalid file type. Only JPEG, PNG, and WebP are allowed.');
+                return;
+            }
+
+            // Validate file size (max 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                setError('File size must be less than 5MB');
+                return;
+            }
+
+            setSelectedFile(file);
+            setPreviewUrl(URL.createObjectURL(file));
+            setError('');
+        }
+    };
+
+    const handleUpload = async () => {
+        if (!selectedFile) {
+            setError('Please select an image first');
+            return;
+        }
+
+        try {
+            setUploading(true);
+            setError('');
+            setSuccess('');
+
+            // Upload image file
+            const uploadFormData = new FormData();
+            uploadFormData.append('file', selectedFile);
+
+            const uploadResponse = await fetch('/api/hero-images/upload', {
+                method: 'POST',
+                body: uploadFormData
+            });
+
+            if (!uploadResponse.ok) {
+                const errorData = await uploadResponse.json();
+                throw new Error(errorData.message || 'Failed to upload image');
+            }
+
+            const uploadData = await uploadResponse.json();
+            const imageUrl = uploadData.url;
+
+            // Add to database
+            const addResponse = await fetch('/api/hero-images', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image_url: imageUrl })
+            });
+
+            if (!addResponse.ok) {
+                const errorData = await addResponse.json();
+                throw new Error(errorData.message || 'Failed to add image to database');
+            }
+
+            setSuccess('Hero image added successfully!');
+            setSelectedFile(null);
+            setPreviewUrl('');
+            await fetchHeroImages();
+
+            // Clear file input
+            const fileInput = document.getElementById('hero-image-input') as HTMLInputElement;
+            if (fileInput) fileInput.value = '';
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred');
+        } finally {
+            setUploading(false);
+        }
+    };
+
+    const handleDelete = async (id: number) => {
+        if (!confirm('Are you sure you want to delete this hero image?')) {
+            return;
+        }
+
+        try {
+            setError('');
+            setSuccess('');
+
+            const response = await fetch(`/api/hero-images?id=${id}`, {
+                method: 'DELETE'
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Failed to delete image');
+            }
+
+            setSuccess('Hero image deleted successfully!');
+            await fetchHeroImages();
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred');
+        }
+    };
+
+    if (loading) {
+        return <div className="text-center py-8">Loading hero images...</div>;
+    }
+
+    return (
+        <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Hero Images</h1>
+            <p className="text-gray-600 mb-8">Manage the slideshow images on the homepage</p>
+
+            {error && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                    {error}
+                </div>
+            )}
+
+            {success && (
+                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                    {success}
+                </div>
+            )}
+
+            {/* Upload Section */}
+            <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Add New Hero Image</h2>
+
+                <div className="space-y-4">
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Select Image
+                        </label>
+                        <input
+                            id="hero-image-input"
+                            type="file"
+                            accept="image/jpeg,image/jpg,image/png,image/webp"
+                            onChange={handleFileSelect}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">
+                            Supported formats: JPEG, PNG, WebP (Max 5MB)
+                        </p>
+                    </div>
+
+                    {previewUrl && (
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Preview
+                            </label>
+                            <img
+                                src={previewUrl}
+                                alt="Preview"
+                                className="w-full max-w-md h-48 object-cover rounded-lg border border-gray-200"
+                            />
+                        </div>
+                    )}
+
+                    <button
+                        onClick={handleUpload}
+                        disabled={!selectedFile || uploading}
+                        className="px-6 py-2 bg-[#012d20] text-[#DCF9F1] rounded-lg font-medium hover:bg-[#012d20]/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        {uploading ? 'Uploading...' : 'Add Hero Image'}
+                    </button>
+                </div>
+            </div>
+
+            {/* Current Images */}
+            <div className="bg-white rounded-lg p-6 shadow-sm">
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Current Hero Images</h2>
+
+                {heroImages.length === 0 ? (
+                    <div className="text-center text-gray-500 py-8">
+                        No hero images found. Add your first image above.
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {heroImages.map((image, index) => (
+                            <div
+                                key={image.id}
+                                className="relative bg-gray-50 rounded-lg overflow-hidden border border-gray-200 group"
+                            >
+                                <img
+                                    src={image.image_url}
+                                    alt={`Hero ${index + 1}`}
+                                    className="w-full h-48 object-cover"
+                                />
+                                <div className="p-4">
+                                    <p className="text-sm text-gray-600 mb-2">
+                                        Display Order: {image.display_order}
+                                    </p>
+                                    <button
+                                        onClick={() => handleDelete(image.id)}
+                                        className="w-full py-2 bg-red-600 text-white rounded font-medium text-sm hover:bg-red-700 transition"
+                                    >
+                                        Remove Image
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
 export default function AdminPage() {
     const { data: session, status } = useSession();
     const [activeTab, setActiveTab] = useState('update');
@@ -1135,6 +1372,18 @@ export default function AdminPage() {
                                 <ShoppingBag size={18} />
                                 <span className="text-sm font-medium">Orders</span>
                             </button>
+
+                            {/* Hero Images */}
+                            <button
+                                onClick={() => setActiveTab('hero')}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'hero'
+                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    : 'text-gray-700 hover:bg-gray-100'
+                                    }`}
+                            >
+                                <Image size={18} />
+                                <span className="text-sm font-medium">Hero Images</span>
+                            </button>
                         </nav>
                     </div>
                 </div>
@@ -1210,6 +1459,21 @@ export default function AdminPage() {
                                 <ShoppingBag size={18} />
                                 <span className="text-sm font-medium">Orders</span>
                             </button>
+
+                            {/* Hero Images */}
+                            <button
+                                onClick={() => {
+                                    setActiveTab('hero');
+                                    setMobileMenuOpen(false);
+                                }}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'hero'
+                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    : 'text-gray-700 hover:bg-gray-100'
+                                    }`}
+                            >
+                                <Image size={18} />
+                                <span className="text-sm font-medium">Hero Images</span>
+                            </button>
                         </nav>
                     </div>
                 </div>
@@ -1227,6 +1491,10 @@ export default function AdminPage() {
 
                         {activeTab === 'orders' && (
                             <OrdersSection />
+                        )}
+
+                        {activeTab === 'hero' && (
+                            <HeroImagesSection />
                         )}
                     </div>
                 </div>

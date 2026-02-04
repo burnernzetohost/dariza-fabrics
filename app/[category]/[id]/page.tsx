@@ -18,7 +18,10 @@ const sanitizeProduct = (row: any) => {
 
 export default async function ProductPage(props: { params: Promise<{ category: string; id: string }> }) {
     const params = await props.params;
-    const { category, id } = params;
+    const { id } = params;
+
+    // Decode the category from URL (handles spaces and special characters)
+    const category = decodeURIComponent(params.category).toLowerCase().trim();
 
     // 1. FETCH FROM DATABASE
     const { rows } = await pool.query(

@@ -26,22 +26,26 @@ const getCategorySubtitle = (cat: string) => {
 
 // --- The New Server Component ---
 export default async function CategoryPage(props: { params: Promise<{ category: string }> }) {
-    // 1. Get the Category from URL
+    // 1. Get the Category from URL and decode it
     const params = await props.params;
-    const category = params.category;
+    const categoryParam = decodeURIComponent(params.category);
+    const category = categoryParam.toLowerCase().trim();
 
-    // List of valid categories
-    const validCategories = ['coats', 'shawls', 'saree'];
+    // 2. Fetch products for this category from database
+    const { rows: categoryProducts } = await pool.query(
+        `SELECT * FROM products WHERE LOWER(category) = $1`,
+        [category]
+    );
 
-    // Check if category is valid
-    if (!validCategories.includes(category.toLowerCase())) {
+    // 3. If no products found, show 404
+    if (categoryProducts.length === 0) {
         return (
             <main className="min-h-screen flex flex-col bg-white">
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
                     <div className="text-center">
                         <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
-                        <p className="text-xl text-gray-600 mb-8">Page not found</p>
+                        <p className="text-xl text-gray-600 mb-8">Category not found</p>
                         <Link
                             href="/"
                             className="inline-block bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300"
@@ -54,12 +58,6 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
             </main>
         );
     }
-
-    // 2. Fetch Real Data from Database
-    const { rows: categoryProducts } = await pool.query(
-        `SELECT * FROM products WHERE category = $1`,
-        [category]
-    );
 
     // 3. Render Your Exact Design
     return (
