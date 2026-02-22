@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
                 try {
                     // Find user by email
                     const result = await pool.query(
-                        'SELECT id, name, email, password, image, admin FROM users WHERE email = $1',
+                        'SELECT id, name, email, password, image, admin, email_verified FROM users WHERE email = $1',
                         [credentials.email]
                     );
 
@@ -62,6 +62,7 @@ export const authOptions: NextAuthOptions = {
                         name: user.name,
                         image: user.image,
                         admin: user.admin || false,
+                        emailVerified: user.email_verified || null,
                     };
                 } catch (error) {
                     console.error('Auth error:', error);
@@ -86,9 +87,15 @@ export const authOptions: NextAuthOptions = {
                 token.name = user.name;
                 token.picture = user.image;
                 token.admin = user.admin || false;
+                token.emailVerified = (user as any).emailVerified || null;
             }
             if (account) {
                 token.provider = account.provider;
+            }
+
+            // For OAuth providers like Google/Facebook, standard behavior verified emails
+            if (account && (account.provider === 'google' || account.provider === 'facebook')) {
+                token.emailVerified = new Date().toISOString();
             }
             return token;
         },
@@ -99,6 +106,7 @@ export const authOptions: NextAuthOptions = {
                 session.user.name = token.name as string;
                 session.user.image = token.picture as string;
                 session.user.admin = token.admin as boolean;
+                (session.user as any).emailVerified = token.emailVerified as string | null;
             }
             return session;
         },

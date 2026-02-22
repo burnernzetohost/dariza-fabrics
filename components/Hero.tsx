@@ -2,33 +2,16 @@
 
 import { useState, useEffect } from 'react';
 
-export default function Hero() {
+interface HeroProps {
+  initialImages?: string[];
+}
+
+export default function Hero({ initialImages = [] }: HeroProps) {
   const [currentImage, setCurrentImage] = useState(0);
-  const [images, setImages] = useState<string[]>(['/hero1.png', '/hero2.png']); // Fallback images
-  const [loading, setLoading] = useState(true);
 
-  // Fetch hero images from database
-  useEffect(() => {
-    const fetchHeroImages = async () => {
-      try {
-        const response = await fetch('/api/hero-images');
-        if (response.ok) {
-          const data = await response.json();
-          if (data && data.length > 0) {
-            const imageUrls = data.map((img: any) => img.image_url);
-            setImages(imageUrls);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching hero images:', error);
-        // Keep fallback images
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHeroImages();
-  }, []);
+  // Only use fallbacks if the database somehow sent literally nothing
+  const fallback = ['/hero1.png', '/hero2.png'];
+  const [images, setImages] = useState<string[]>(initialImages.length > 0 ? initialImages : fallback);
 
   // Slideshow timer
   useEffect(() => {

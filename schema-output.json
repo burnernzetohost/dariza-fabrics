@@ -16,19 +16,27 @@
     "data_type": "boolean"
   },
   {
-    "column_name": "details",
-    "data_type": "ARRAY"
+    "column_name": "images",
+    "data_type": "jsonb"
   },
   {
     "column_name": "id",
     "data_type": "text"
   },
   {
-    "column_name": "images",
-    "data_type": "ARRAY"
+    "column_name": "meta_title",
+    "data_type": "character varying"
   },
   {
-    "column_name": "sizes",
+    "column_name": "meta_description",
+    "data_type": "character varying"
+  },
+  {
+    "column_name": "slug",
+    "data_type": "character varying"
+  },
+  {
+    "column_name": "details",
     "data_type": "ARRAY"
   },
   {
@@ -42,5 +50,9 @@
   {
     "column_name": "description",
     "data_type": "text"
+  },
+  {
+    "column_name": "sizes",
+    "data_type": "ARRAY"
   }
 ]

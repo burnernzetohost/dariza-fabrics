@@ -1,12 +1,24 @@
-'use client';
-
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import pool from '@/lib/db'; // Connect to DB
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour static cache for global shop
+
+export const metadata = {
+    title: 'Shop All | Darzia Fabrics',
+    description: 'Explore our exclusive range of timeless Kashmiri Elegance, premium sarees, and warm coats.',
+    alternates: {
+        canonical: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.darziafabrics.com'}/shop`
+    },
+    openGraph: {
+        title: 'Shop All | Darzia Fabrics',
+        description: 'Explore our exclusive range of timeless Kashmiri Elegance, premium sarees, and warm coats.',
+        url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.darziafabrics.com'}/shop`
+    }
+};
 
 interface Product {
     id: string;
@@ -16,25 +28,9 @@ interface Product {
     category: string;
 }
 
-export default function ShopPage() {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        async function fetchProducts() {
-            try {
-                const response = await fetch('/api/products');
-                const data = await response.json();
-                setProducts(data);
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchProducts();
-    }, []);
+export default async function ShopPage() {
+    // Fetch products securely server-side
+    const { rows: products } = await pool.query(`SELECT * FROM products ORDER BY created_at DESC`);
 
     return (
         <main className="min-h-screen flex flex-col bg-white">
@@ -61,21 +57,24 @@ export default function ShopPage() {
 
                 {/* Product Grid */}
                 <section className="max-w-7xl mx-auto px-4 py-20">
-                    {loading ? (
-                        <div className="text-center text-gray-500">Loading products...</div>
+                    {products.length === 0 ? (
+                        <div className="text-center py-20">
+                            <p className="text-xl text-gray-500">No products found in this collection.</p>
+                        </div>
                     ) : (
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
                             {products.map((product) => (
                                 <Link
                                     key={product.id}
-                                    href={`/${product.category}/${product.id}`}
+                                    href={`/${product.category.toLowerCase().trim()}/${product.slug || product.id}`}
                                     className="group cursor-pointer block"
                                 >
                                     <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4">
-                                        <img
+                                        <Image
                                             src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url}
                                             alt={typeof product.images[0] === 'string' ? product.name : (product.images[0]?.alt || product.name)}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#012d20] text-white text-xs uppercase tracking-widest px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[90%] text-center">
                                             Add to Cart
@@ -86,7 +85,7 @@ export default function ShopPage() {
                                         <h3 className="text-sm font-bold uppercase tracking-wide text-gray-900">
                                             {product.name}
                                         </h3>
-                                        <p className="text-gray-500 text-sm mt-1">₹{product.price.toLocaleString()}</p>
+                                        <p className="text-gray-500 text-sm mt-1">₹{Number(product.price).toLocaleString('en-IN')}</p>
                                     </div>
                                 </Link>
                             ))}

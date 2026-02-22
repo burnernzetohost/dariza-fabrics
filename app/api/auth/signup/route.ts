@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import pool from '@/lib/db';
+import crypto from 'crypto';
+import { sendVerificationEmail } from '@/lib/email';
 
 export async function POST(request: NextRequest) {
     try {
@@ -46,6 +48,21 @@ export async function POST(request: NextRequest) {
         );
 
         const user = result.rows[0];
+
+        // Generate email verification token
+        const verificationToken = crypto.randomBytes(32).toString('hex');
+        const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
+        await pool.query(
+            `INSERT INTO verification_tokens (identifier, token, expires) 
+             VALUES ($1, $2, $3)`,
+            [user.email, verificationToken, expiresAt]
+        );
+
+        // Send email (we don't await strictly to prevent slow signup, but we should handle it asynchronously)
+        sendVerificationEmail(user.email, verificationToken).catch(err => {
+            console.error('Failed to dispatch verification email in background:', err);
+        });
 
         return NextResponse.json(
             {

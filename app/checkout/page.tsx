@@ -278,6 +278,31 @@ export default function CheckoutPage() {
         );
     }
 
+    // Require email verification before checkout
+    if (session && !(session.user as any).emailVerified) {
+        return (
+            <main className="min-h-screen flex flex-col bg-white">
+                <Navbar />
+                <div className="flex-grow flex flex-col items-center justify-center p-4">
+                    <div className="max-w-md w-full text-center">
+                        <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <AlertCircle className="w-8 h-8 text-amber-600" />
+                        </div>
+                        <h1 className="text-3xl font-serif text-gray-900 mb-3">Verify Your Email</h1>
+                        <p className="text-gray-500 mb-8">
+                            We've sent a verification link to your email address ({session.user?.email}).
+                            Please click the link in that email to proceed to checkout!
+                        </p>
+                        <p className="text-sm text-gray-400">
+                            If you don't see it, be sure to check your spam/junk folder.
+                        </p>
+                    </div>
+                </div>
+                <Footer />
+            </main>
+        );
+    }
+
     if (items.length === 0) {
         return (
             <main className="min-h-screen flex flex-col bg-white">

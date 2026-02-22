@@ -71,14 +71,14 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
                     }`}
             >
                 {toast && (
-                    <div className="bg-white border-l-4 border-black shadow-2xl p-6 w-96 m-4 flex items-start gap-5">
+                    <div className="bg-white border-l-4 border-black shadow-2xl p-6 w-96 m-4 flex items-start gap-5 relative">
                         {toast.image && (
                             <div className="w-20 h-24 bg-gray-100 flex-shrink-0">
                                 <img src={toast.image} alt={toast.name} className="w-full h-full object-cover" />
                             </div>
                         )}
 
-                        <div className="flex-1 min-w-0">
+                        <div className="flex-1 min-w-0 pr-6">
                             <h4 className="text-base font-medium text-gray-900 truncate pr-4">{toast.name}</h4>
                             <p className="text-sm text-black mt-1">Size: {toast.size || 'N/A'}</p>
                             <div className="flex items-center justify-between mt-3">
@@ -92,7 +92,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
 
                         <button
                             onClick={closeToast}
-                            className="text-gray-400 hover:text-black absolute top-3 right-3"
+                            className="text-gray-400 hover:text-black absolute top-6 right-6"
                         >
                             <X className="w-5 h-5" />
                         </button>

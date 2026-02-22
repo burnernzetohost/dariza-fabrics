@@ -1,10 +1,13 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import pool from '@/lib/db'; // Connect to DB
 
-export const dynamic = 'force-dynamic';
+import { Metadata } from 'next';
+
+export const revalidate = 3600; // 1 hour regeneration cache
 
 // --- Your Helper Functions (Kept Exactly the Same) ---
 const getCategoryTitle = (cat: string) => {
@@ -23,6 +26,29 @@ const getCategorySubtitle = (cat: string) => {
     if (c === 'saree') return 'Silk Elegance';
     return 'Explore our exclusive range.';
 };
+
+export async function generateMetadata(props: { params: Promise<{ category: string }> }): Promise<Metadata> {
+    const params = await props.params;
+    const categoryParam = decodeURIComponent(params.category);
+    const category = categoryParam.toLowerCase().trim();
+
+    const title = getCategoryTitle(category) + ' | Darzia Fabrics';
+    const description = getCategorySubtitle(category);
+    const url = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.darziafabrics.com'}/${category}`;
+
+    return {
+        title,
+        description,
+        alternates: {
+            canonical: url,
+        },
+        openGraph: {
+            title,
+            description,
+            url,
+        }
+    };
+}
 
 // --- The New Server Component ---
 export default async function CategoryPage(props: { params: Promise<{ category: string }> }) {
@@ -99,10 +125,11 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
                                 >
                                     <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4">
                                         {/* Handle array of images from DB */}
-                                        <img
+                                        <Image
                                             src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url}
                                             alt={typeof product.images[0] === 'string' ? product.name : (product.images[0]?.alt || product.name)}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#012d20] text-white text-xs uppercase tracking-widest px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[90%] text-center">
                                             Add to Cart

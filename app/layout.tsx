@@ -33,8 +33,25 @@ const swirl = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "DARIZA FABRICS",
-  description: "Fresh New Arrivals",
+  title: "Darzia Fabrics | Authentic Kashmiri Shawls, Sarees & Coats",
+  description: "Explore our exclusive range of timeless Kashmiri Elegance, premium sarees, and warm coats. Authentic Darzia design.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.darziafabrics.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: '/',
+    siteName: 'Darzia Fabrics',
+    title: 'Darzia Fabrics | Authentic Kashmiri Styles',
+    description: 'Fresh New Arrivals of premium handcrafted material.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Darzia Fabrics',
+    description: 'Authentic Kashmiri Shawls, Sarees & Coats',
+  },
 };
 
 export const viewport = {
@@ -61,6 +78,19 @@ export default function RootLayout({
         <Providers>
           {children}
         </Providers>
+
+        {/* Global Google Analytics Setup */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-TRACKING-ID" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-TRACKING-ID');
+            `
+          }}
+        />
       </body>
     </html>
   );

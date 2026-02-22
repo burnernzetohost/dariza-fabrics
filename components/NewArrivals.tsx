@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext';
 import { ShoppingBag } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 interface Product {
@@ -70,10 +71,11 @@ export default function NewArrivals() {
                 {product.sale_price ? 'Sale' : 'New'}
               </span>
               <Link href={`/${product.category}/${product.id}`}>
-                <img
+                <Image
                   src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url}
                   alt={typeof product.images[0] === 'string' ? product.name : (product.images[0]?.alt || product.name)}
-                  className="w-full h-full object-cover hover:opacity-90 transition duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover hover:opacity-90 transition duration-500 group-hover:scale-105"
                 />
               </Link>
 
