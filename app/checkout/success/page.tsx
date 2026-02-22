@@ -17,7 +17,7 @@ function SuccessContent() {
                 <CheckCircle className="w-16 h-16 text-green-600" />
             </div>
 
-            <h1 className="text-4xl font-serif text-gray-900 mb-4">Order Confirmed!</h1>
+            <h1 className="text-4xl font-serif text-[#01321F] mb-4">Order Confirmed!</h1>
 
             <p className="text-gray-600 mb-2">
                 Thank you for your order.
@@ -47,7 +47,7 @@ function SuccessContent() {
                 </Link>
                 <Link
                     href="/"
-                    className="block border border-gray-300 text-gray-900 py-3 uppercase tracking-widest text-xs font-medium hover:bg-gray-50 transition duration-300"
+                    className="block border border-gray-300 text-[#01321F] py-3 uppercase tracking-widest text-xs font-medium hover:bg-gray-50 transition duration-300"
                 >
                     Return Home
                 </Link>

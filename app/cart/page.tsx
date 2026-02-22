@@ -14,7 +14,7 @@ export default function CartPage() {
             <main className="min-h-screen flex flex-col bg-white">
                 <Navbar />
                 <div className="flex-grow flex flex-col items-center justify-center p-4">
-                    <h1 className="text-3xl font-serif text-gray-900 mb-4">Your Cart is Empty</h1>
+                    <h1 className="text-3xl font-serif text-[#01321F] mb-4">Your Cart is Empty</h1>
                     <p className="text-gray-500 mb-8 text-center max-w-md">Looks like you haven't added anything to your cart yet. Browse our collections to find your perfect style.</p>
                     <Link
                         href="/"
@@ -33,11 +33,11 @@ export default function CartPage() {
             <Navbar />
             <div className="flex-grow max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
                 <div className="flex items-center mb-8">
-                    <Link href="/" className="flex items-center text-gray-500 hover:text-black mr-4 transition">
+                    <Link href="/" className="flex items-center text-gray-500 hover:text-[#01321F] mr-4 transition">
                         <ArrowLeft className="w-5 h-5 mr-1" />
                         <span className="text-sm uppercase tracking-wider">Back</span>
                     </Link>
-                    <h1 className="text-3xl font-serif text-gray-900">Your Shopping Cart</h1>
+                    <h1 className="text-3xl font-serif text-[#01321F]">Your Shopping Cart</h1>
                 </div>
 
                 <div className="lg:grid lg:grid-cols-12 lg:gap-x-12 lg:items-start">
@@ -67,7 +67,7 @@ export default function CartPage() {
                                                 <div className="mt-1 flex text-sm">
                                                     <p className="text-gray-500">Size: {item.size || 'N/A'}</p>
                                                 </div>
-                                                <p className="mt-1 text-sm font-medium text-gray-900">₹{(item.salePrice || item.price).toFixed(2)}</p>
+                                                <p className="mt-1 text-sm font-medium text-[#01321F]">₹{(item.salePrice || item.price).toFixed(2)}</p>
                                             </div>
 
                                             <div className="mt-4 sm:mt-0 sm:pr-9">
@@ -79,7 +79,7 @@ export default function CartPage() {
                                                     >
                                                         <Minus className="h-4 w-4 text-gray-600" />
                                                     </button>
-                                                    <span className="px-2 text-sm text-gray-900 min-w-[1.5rem] text-center">{item.quantity}</span>
+                                                    <span className="px-2 text-sm text-[#01321F] min-w-[1.5rem] text-center">{item.quantity}</span>
                                                     <button
                                                         onClick={() => updateQuantity(item.id, item.quantity + 1)}
                                                         className="p-1 hover:bg-gray-100"
@@ -111,18 +111,18 @@ export default function CartPage() {
                         aria-labelledby="summary-heading"
                         className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-4 lg:mt-0 lg:p-8"
                     >
-                        <h2 id="summary-heading" className="text-lg font-medium text-gray-900">
+                        <h2 id="summary-heading" className="text-lg font-medium text-[#01321F]">
                             Order summary
                         </h2>
 
                         <div className="mt-6 space-y-4">
                             <div className="flex items-center justify-between">
                                 <div className="text-sm text-gray-600">Subtotal</div>
-                                <div className="text-sm font-medium text-gray-900">₹{subtotal.toFixed(2)}</div>
+                                <div className="text-sm font-medium text-[#01321F]">₹{subtotal.toFixed(2)}</div>
                             </div>
                             <div className="flex items-center justify-between border-t border-gray-200 pt-4">
-                                <div className="text-base font-medium text-gray-900">Order total</div>
-                                <div className="text-base font-medium text-gray-900">₹{subtotal.toFixed(2)}</div>
+                                <div className="text-base font-medium text-[#01321F]">Order total</div>
+                                <div className="text-base font-medium text-[#01321F]">₹{subtotal.toFixed(2)}</div>
                             </div>
                         </div>
 

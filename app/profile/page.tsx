@@ -64,7 +64,7 @@ export default function ProfilePage() {
                                     <UserCircle className="w-16 h-16 text-[#ffffff]" />
                                 </div>
                             )}
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                            <h2 className="text-2xl font-bold text-[#01321F] mb-2">
                                 {session.user.name || 'User'}
                             </h2>
                             <p className="text-gray-500">{session.user.email}</p>
@@ -72,7 +72,7 @@ export default function ProfilePage() {
 
                         {/* Account Information */}
                         <div className="space-y-6">
-                            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                            <h3 className="text-xl font-semibold text-[#01321F] mb-4">
                                 Account Information
                             </h3>
 
@@ -83,7 +83,7 @@ export default function ProfilePage() {
                                         <UserCircle className="w-4 h-4 mr-2" />
                                         Full Name
                                     </label>
-                                    <div className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-md text-gray-900">
+                                    <div className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-md text-[#01321F]">
                                         {session.user.name || 'Not provided'}
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@ export default function ProfilePage() {
                                         <Mail className="w-4 h-4 mr-2" />
                                         Email Address
                                     </label>
-                                    <div className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-md text-gray-900">
+                                    <div className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-md text-[#01321F]">
                                         {session.user.email}
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@ export default function ProfilePage() {
 
                         {/* Future Features Placeholder */}
                         <div className="mt-10 pt-8 border-t border-gray-100">
-                            <h3 className="text-xl font-semibold text-gray-900 mb-4">
+                            <h3 className="text-xl font-semibold text-[#01321F] mb-4">
                                 Order History
                             </h3>
                             <div className="text-center py-12 bg-gray-50 rounded-lg">

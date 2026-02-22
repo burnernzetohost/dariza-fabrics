@@ -24,7 +24,7 @@ export default function ContactPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
                         {/* Contact Form */}
                         <div>
-                            <h2 className="text-2xl font-serif text-black mb-8">Send us a Message</h2>
+                            <h2 className="text-2xl font-serif text-[#01321F] mb-8">Send us a Message</h2>
                             <form className="space-y-6">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 uppercase tracking-wide">
@@ -89,20 +89,20 @@ export default function ContactPage() {
                         <div className="bg-gray-50 p-10 lg:p-16 h-full flex flex-col justify-center">
                             <div className="space-y-10">
                                 <div>
-                                    <h3 className="text-lg font-bold uppercase tracking-widest text-black mb-4">Customer Care</h3>
+                                    <h3 className="text-lg font-bold uppercase tracking-widest text-[#01321F] mb-4">Customer Care</h3>
                                     <p className="text-gray-600 mb-2">For inquiries about orders, sizing, or general questions:</p>
                                     <div className="space-y-2">
-                                        <a href="mailto:info@darizafabrics.com" className="block text-black font-medium hover:underline text-lg">
+                                        <a href="mailto:info@darizafabrics.com" className="block text-[#01321F] font-medium hover:underline text-lg">
                                             info@darizafabrics.com
                                         </a>
-                                        <a href="https://api.whatsapp.com/send/?phone=919055569991" className="block text-black font-medium hover:underline text-lg">
+                                        <a href="https://api.whatsapp.com/send/?phone=919055569991" className="block text-[#01321F] font-medium hover:underline text-lg">
                                             +91-9055569991
                                         </a>
                                     </div>
                                 </div>
 
                                 <div>
-                                    <h3 className="text-lg font-bold uppercase tracking-widest text-black mb-4">Working Hours</h3>
+                                    <h3 className="text-lg font-bold uppercase tracking-widest text-[#01321F] mb-4">Working Hours</h3>
                                     <p className="text-gray-600 text-lg">
                                         Monday – Saturday: 10:00 AM – 7:00 PM
                                     </p>
@@ -111,11 +111,11 @@ export default function ContactPage() {
 
 
                                 <div>
-                                    <h3 className="text-lg font-bold uppercase tracking-widest text-black mb-4">Follow Us</h3>
+                                    <h3 className="text-lg font-bold uppercase tracking-widest text-[#01321F] mb-4">Follow Us</h3>
                                     <p className="text-gray-600 mb-4">Stay updated with our latest collections.</p>
                                     <div className="flex space-x-6">
-                                        <a href="https://instagram.com" className="text-gray-400 hover:text-black transition">Instagram</a>
-                                        <a href="https://facebook.com" className="text-gray-400 hover:text-black transition">Facebook</a>
+                                        <a href="https://instagram.com" className="text-gray-400 hover:text-[#01321F] transition">Instagram</a>
+                                        <a href="https://facebook.com" className="text-gray-400 hover:text-[#01321F] transition">Facebook</a>
                                     </div>
                                 </div>
 

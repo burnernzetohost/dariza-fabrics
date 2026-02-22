@@ -53,7 +53,7 @@ export default function Hero({ initialImages = [] }: HeroProps) {
           <button className="bg-[#000000] text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-[#1a1a1a] transition border border-[#000000]">
             Shop Latest
           </button>
-          <button className="border border-white text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-white hover:text-[#000000] transition">
+          <button className="border border-white text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-white hover:text-[#01321F] transition">
             Best Selling
           </button>
         </div>

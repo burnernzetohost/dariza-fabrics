@@ -117,12 +117,12 @@ function OrdersSection() {
             <div>
                 <button
                     onClick={() => { setSelectedOrder(null); setError(''); setSuccess(''); }}
-                    className="mb-4 px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
+                    className="mb-4 px-4 py-2 text-gray-600 hover:text-[#01321F] font-medium"
                 >
                     ← Back to Orders
                 </button>
 
-                <h1 className="text-3xl font-bold text-gray-900 mb-6">Order Details</h1>
+                <h1 className="text-3xl font-bold text-[#01321F] mb-6">Order Details</h1>
 
                 {error && (
                     <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
@@ -140,7 +140,7 @@ function OrdersSection() {
                     {/* Items - Left Side */}
                     <div className="lg:col-span-2">
                         <div className="bg-white rounded-lg p-6 shadow-sm">
-                            <h2 className="text-xl font-bold text-gray-900 mb-4">Items Ordered</h2>
+                            <h2 className="text-xl font-bold text-[#01321F] mb-4">Items Ordered</h2>
                             <div className="space-y-4">
                                 {items.map((item: any, idx: number) => (
                                     <div key={idx} className="flex gap-4 border-b pb-4 last:border-0">
@@ -154,10 +154,10 @@ function OrdersSection() {
                                         )}
                                         {/* Product Info */}
                                         <div className="flex-1">
-                                            <h3 className="font-semibold text-gray-900">{item.product_name}</h3>
+                                            <h3 className="font-semibold text-[#01321F]">{item.product_name}</h3>
                                             <p className="text-gray-600 text-sm">Quantity: {item.quantity}</p>
                                             <p className="text-gray-600 text-sm">Price: ₹{item.price_per_unit}</p>
-                                            <p className="font-bold text-[#000000]">₹{item.quantity * item.price_per_unit}</p>
+                                            <p className="font-bold text-[#01321F]">₹{item.quantity * item.price_per_unit}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -178,7 +178,7 @@ function OrdersSection() {
 
                             {/* Customer Info */}
                             <div className="border-t pt-4">
-                                <h3 className="font-bold text-gray-900 mb-2">Customer</h3>
+                                <h3 className="font-bold text-[#01321F] mb-2">Customer</h3>
                                 <p className="text-sm text-gray-600"><strong>Name:</strong> {selectedOrder.customer_name}</p>
                                 <p className="text-sm text-gray-600"><strong>Email:</strong> {selectedOrder.customer_email}</p>
                                 <p className="text-sm text-gray-600"><strong>Phone:</strong> {selectedOrder.customer_phone}</p>
@@ -186,14 +186,14 @@ function OrdersSection() {
 
                             {/* Address */}
                             <div className="border-t pt-4">
-                                <h3 className="font-bold text-gray-900 mb-2">Shipping Address</h3>
+                                <h3 className="font-bold text-[#01321F] mb-2">Shipping Address</h3>
                                 <p className="text-sm text-gray-600">{selectedOrder.shipping_address}</p>
                             </div>
 
                             {/* Total */}
                             <div className="border-t pt-4 bg-gray-50 p-3 rounded">
                                 <p className="text-sm text-gray-600">Total Amount</p>
-                                <p className="text-2xl font-bold text-[#000000]">₹{selectedOrder.total_amount}</p>
+                                <p className="text-2xl font-bold text-[#01321F]">₹{selectedOrder.total_amount}</p>
                             </div>
 
                             {/* Status Buttons */}
@@ -224,7 +224,7 @@ function OrdersSection() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Orders</h1>
+            <h1 className="text-3xl font-bold text-[#01321F] mb-2">Orders</h1>
             <p className="text-gray-600 mb-8">Manage all customer orders</p>
 
             {orders.length === 0 ? (
@@ -244,7 +244,7 @@ function OrdersSection() {
                                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start">
                                     {/* Items Preview */}
                                     <div className="md:col-span-2">
-                                        <h3 className="font-semibold text-gray-900 mb-2">Items ({items.length})</h3>
+                                        <h3 className="font-semibold text-[#01321F] mb-2">Items ({items.length})</h3>
                                         <div className="flex gap-2 flex-wrap">
                                             {items.slice(0, 3).map((item: any, idx: number) => (
                                                 <div key={idx} className="relative">
@@ -269,7 +269,7 @@ function OrdersSection() {
                                     {/* Total */}
                                     <div>
                                         <p className="text-xs text-gray-500 uppercase mb-1">Total</p>
-                                        <p className="text-xl font-bold text-[#000000]">₹{order.total_amount}</p>
+                                        <p className="text-xl font-bold text-[#01321F]">₹{order.total_amount}</p>
                                     </div>
 
                                     {/* Status */}
@@ -417,12 +417,12 @@ function UpdateProductsSection() {
             <div>
                 <button
                     onClick={() => { setSelectedProduct(null); setEditData(null); }}
-                    className="mb-4 px-4 py-2 text-gray-600 hover:text-gray-900 font-medium"
+                    className="mb-4 px-4 py-2 text-gray-600 hover:text-[#01321F] font-medium"
                 >
                     ← Back to Products
                 </button>
 
-                <h1 className="text-3xl font-bold text-gray-900 mb-6">Edit Product</h1>
+                <h1 className="text-3xl font-bold text-[#01321F] mb-6">Edit Product</h1>
 
                 {error && (
                     <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
@@ -520,7 +520,7 @@ function UpdateProductsSection() {
 
                     {/* SEO Settings */}
                     <div className="mt-8 border-t border-gray-200 pt-6">
-                        <h3 className="text-xl font-bold text-gray-900 mb-4">SEO Settings</h3>
+                        <h3 className="text-xl font-bold text-[#01321F] mb-4">SEO Settings</h3>
 
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div className="space-y-6">
@@ -662,7 +662,7 @@ function UpdateProductsSection() {
                     {showDeleteConfirm && (
                         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                             <div className="bg-white rounded-lg p-8 max-w-md mx-4">
-                                <h2 className="text-2xl font-bold text-gray-900 mb-4">Delete Product?</h2>
+                                <h2 className="text-2xl font-bold text-[#01321F] mb-4">Delete Product?</h2>
                                 <p className="text-gray-600 mb-2">
                                     Are you sure you want to delete <strong>"{editData.name}"</strong>?
                                 </p>
@@ -695,7 +695,7 @@ function UpdateProductsSection() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Update Products</h1>
+            <h1 className="text-3xl font-bold text-[#01321F] mb-2">Update Products</h1>
             <p className="text-gray-600 mb-8">Select a product to edit</p>
 
             {products.length === 0 ? (
@@ -727,17 +727,17 @@ function UpdateProductsSection() {
 
                             {/* Product Info */}
                             <div className="p-4">
-                                <h3 className="font-semibold text-gray-900 mb-1 line-clamp-2">{product.name}</h3>
+                                <h3 className="font-semibold text-[#01321F] mb-1 line-clamp-2">{product.name}</h3>
                                 <p className="text-sm text-gray-500 mb-2 capitalize">{product.category}</p>
 
                                 <div className="flex items-center gap-2 mb-3">
                                     {product.sale_price ? (
                                         <>
                                             <span className="text-gray-400 line-through text-sm">₹{product.price}</span>
-                                            <span className="font-bold text-[#000000]">₹{product.sale_price}</span>
+                                            <span className="font-bold text-[#01321F]">₹{product.sale_price}</span>
                                         </>
                                     ) : (
-                                        <span className="font-bold text-[#000000]">₹{product.price}</span>
+                                        <span className="font-bold text-[#01321F]">₹{product.price}</span>
                                     )}
                                 </div>
 
@@ -969,7 +969,7 @@ function AddProductForm() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Add New Product</h1>
+            <h1 className="text-3xl font-bold text-[#01321F] mb-2">Add New Product</h1>
             <p className="text-gray-600 mb-8">Create a new product listing</p>
 
             <form onSubmit={handleSubmit} className="bg-white rounded-lg p-8 shadow-sm">
@@ -1103,7 +1103,7 @@ function AddProductForm() {
                                 name="newArrival"
                                 checked={formData.newArrival}
                                 onChange={handleCheckboxChange}
-                                className="w-4 h-4 rounded border-gray-300 text-[#000000] focus:ring-[#000000]"
+                                className="w-4 h-4 rounded border-gray-300 text-[#01321F] focus:ring-[#000000]"
                             />
                             <span className="text-sm font-medium text-gray-700">Mark as New Arrival</span>
                         </label>
@@ -1123,7 +1123,7 @@ function AddProductForm() {
 
                 {/* SEO Settings */}
                 <div className="mt-8 border-t border-gray-200 pt-6">
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">SEO Settings</h3>
+                    <h3 className="text-xl font-bold text-[#01321F] mb-4">SEO Settings</h3>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="space-y-6">
@@ -1423,7 +1423,7 @@ function HeroImagesSection() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Hero Images</h1>
+            <h1 className="text-3xl font-bold text-[#01321F] mb-2">Hero Images</h1>
             <p className="text-gray-600 mb-8">Manage the slideshow images on the homepage</p>
 
             {error && (
@@ -1440,7 +1440,7 @@ function HeroImagesSection() {
 
             {/* Upload Section */}
             <div className="bg-white rounded-lg p-6 shadow-sm mb-8">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Add New Hero Image</h2>
+                <h2 className="text-xl font-bold text-[#01321F] mb-4">Add New Hero Image</h2>
 
                 <div className="space-y-4">
                     <div>
@@ -1484,7 +1484,7 @@ function HeroImagesSection() {
 
             {/* Current Images */}
             <div className="bg-white rounded-lg p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">Current Hero Images</h2>
+                <h2 className="text-xl font-bold text-[#01321F] mb-4">Current Hero Images</h2>
 
                 {heroImages.length === 0 ? (
                     <div className="text-center text-gray-500 py-8">
@@ -1563,7 +1563,7 @@ function CartsSection() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Carts</h1>
+            <h1 className="text-3xl font-bold text-[#01321F] mb-2">Carts</h1>
             <p className="text-gray-600 mb-8">Track customer cart activity</p>
 
             {/* Stats */}
@@ -1574,7 +1574,7 @@ function CartsSection() {
                         }`}
                 >
                     <p className={`text-xs uppercase tracking-wider mb-1 font-medium ${filter === 'all' ? 'text-[#ffffff]' : 'text-gray-500'}`}>Total Carts</p>
-                    <p className={`text-3xl sm:text-4xl font-bold ${filter === 'all' ? 'text-white' : 'text-gray-900'}`}>{total}</p>
+                    <p className={`text-3xl sm:text-4xl font-bold ${filter === 'all' ? 'text-white' : 'text-[#01321F]'}`}>{total}</p>
                 </button>
                 <button
                     onClick={() => setFilter('abandoned')}
@@ -1610,7 +1610,7 @@ function CartsSection() {
                                 <div className="flex items-start justify-between gap-2 mb-2">
                                     <div className="flex-1 min-w-0">
                                         <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                                            <p className="font-semibold text-gray-900 truncate text-sm sm:text-base">{cart.user_name || cart.user_email}</p>
+                                            <p className="font-semibold text-[#01321F] truncate text-sm sm:text-base">{cart.user_name || cart.user_email}</p>
                                             <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize flex-shrink-0 ${statusBadge(cart.cart_status)}`}>
                                                 {cart.cart_status}
                                             </span>
@@ -1620,7 +1620,7 @@ function CartsSection() {
                                     {/* Value — always visible top-right */}
                                     <div className="text-right flex-shrink-0">
                                         {cartValue > 0 && (
-                                            <p className="text-base sm:text-lg font-bold text-[#000000]">₹{cartValue}</p>
+                                            <p className="text-base sm:text-lg font-bold text-[#01321F]">₹{cartValue}</p>
                                         )}
                                         {cart.cart_status === 'bought' && cart.order_total && (
                                             <p className="text-xs text-green-600 font-medium">Ordered ₹{cart.order_total}</p>
@@ -1679,7 +1679,7 @@ export default function AdminPage() {
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
                     <div className="text-center">
-                        <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
+                        <h1 className="text-6xl font-bold text-[#01321F] mb-4">404</h1>
                         <p className="text-xl text-gray-600 mb-8">Page not found</p>
                         <Link
                             href="/"
@@ -1774,7 +1774,7 @@ export default function AdminPage() {
                 {/* Mobile Hamburger Button */}
                 <button
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    className="lg:hidden absolute left-4 top-4 z-50 p-2 text-black transition-transform duration-300 ease-in-out"
+                    className="lg:hidden absolute left-4 top-4 z-50 p-2 text-[#01321F] transition-transform duration-300 ease-in-out"
                     style={{
                         transform: mobileMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'
                     }}

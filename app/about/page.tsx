@@ -43,7 +43,7 @@ export default function AboutPage() {
 
                         {/* The Essence of Dariza Section */}
                         <div className="pt-10 space-y-6 leading-relaxed">
-                            <h2 className="text-3xl md:text-5xl font-serif text-black font-bold mb-10">The Essence of Dariza</h2>
+                            <h2 className="text-3xl md:text-5xl font-serif text-[#01321F] font-bold mb-10">The Essence of Dariza</h2>
 
                             <p>In every thread, a story breathes</p>
                             <p>In every fold, a memory unfolds…</p>
@@ -59,7 +59,7 @@ export default function AboutPage() {
                                 Dariza is where tradition breathes anew- a gentle revival of Kashmiri and Dogra artistry, reimagined in forms that feel timeless, tactile and true. Every creation carries the rhythm of craft, translated into the language of today.
                             </p>
 
-                            <p className="font-semibold text-black">
+                            <p className="font-semibold text-[#01321F]">
                                 Dariza- crafted with soul, inspired by heritage and designed for today
                             </p>
 
@@ -71,7 +71,7 @@ export default function AboutPage() {
 
                     {/* Image Placeholder or Quote */}
                     <div className="bg-gray-50 p-12 text-center my-12 border-t border-b border-gray-100">
-                        <blockquote className="font-serif text-2xl italic text-gray-900">
+                        <blockquote className="font-serif text-2xl italic text-[#01321F]">
                             "Fabric is the soul of the garment, and we ensure ours has a beautiful story to tell."
                         </blockquote>
                     </div>

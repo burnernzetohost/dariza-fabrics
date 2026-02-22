@@ -126,7 +126,7 @@ export default function SignupPage() {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900"
+                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-[#01321F]"
                                     placeholder="John Doe"
                                 />
                             </div>
@@ -145,7 +145,7 @@ export default function SignupPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900"
+                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-[#01321F]"
                                     placeholder="you@example.com"
                                 />
                             </div>
@@ -165,7 +165,7 @@ export default function SignupPage() {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900 pr-12"
+                                        className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-[#01321F] pr-12"
                                         placeholder="••••••••"
                                     />
                                     <button
@@ -196,7 +196,7 @@ export default function SignupPage() {
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900"
+                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-[#01321F]"
                                     placeholder="••••••••"
                                 />
                             </div>
@@ -267,7 +267,7 @@ export default function SignupPage() {
                             Already have an account?{' '}
                             <Link
                                 href="/login"
-                                className="text-[#000000] hover:text-[#000000]/80 font-medium transition-colors"
+                                className="text-[#01321F] hover:text-[#01321F]/80 font-medium transition-colors"
                             >
                                 Sign in
                             </Link>
@@ -278,11 +278,11 @@ export default function SignupPage() {
                     <div className="mt-8 text-center text-xs text-gray-500 space-y-2">
                         <p>
                             By creating an account, you agree to our{' '}
-                            <Link href="/terms" className="text-[#000000] hover:underline">
+                            <Link href="/terms" className="text-[#01321F] hover:underline">
                                 Terms of Service
                             </Link>{' '}
                             and{' '}
-                            <Link href="/privacy" className="text-[#000000] hover:underline">
+                            <Link href="/privacy" className="text-[#01321F] hover:underline">
                                 Privacy Policy
                             </Link>
                         </p>

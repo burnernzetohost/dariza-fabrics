@@ -28,7 +28,7 @@ export default function CancellationExchangePage() {
 
                     {/* Size Exchange Section */}
                     <section className="space-y-6">
-                        <h2 className="text-2xl font-serif text-black font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
+                        <h2 className="text-2xl font-serif text-[#01321F] font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
                             Size Exchange
                         </h2>
                         <p>
@@ -43,7 +43,7 @@ export default function CancellationExchangePage() {
 
                     {/* Returns Section */}
                     <section className="space-y-4">
-                        <h2 className="text-2xl font-serif text-black font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
+                        <h2 className="text-2xl font-serif text-[#01321F] font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
                             Return
                         </h2>
                         <p>
@@ -53,7 +53,7 @@ export default function CancellationExchangePage() {
 
                     {/* Damaged/Wrong Delivery */}
                     <section className="space-y-4">
-                        <h2 className="text-2xl font-serif text-black font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
+                        <h2 className="text-2xl font-serif text-[#01321F] font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
                             Damaged / Wrong Delivery
                         </h2>
                         <p>
@@ -63,7 +63,7 @@ export default function CancellationExchangePage() {
 
                     {/* When Exchange is not accepted */}
                     <section className="space-y-6">
-                        <h2 className="text-2xl font-serif text-black font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
+                        <h2 className="text-2xl font-serif text-[#01321F] font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
                             When Exchange is not accepted?
                         </h2>
                         <ul className="list-disc pl-5 space-y-4 text-gray-700">
@@ -81,10 +81,10 @@ export default function CancellationExchangePage() {
 
                     {/* CANCELLATIONS / REFUND */}
                     <section className="space-y-4">
-                        <h2 className="text-2xl font-serif text-black font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
+                        <h2 className="text-2xl font-serif text-[#01321F] font-bold uppercase tracking-wide border-b border-gray-200 pb-2">
                             Cancellations / Refund
                         </h2>
-                        <p className="font-medium text-black">
+                        <p className="font-medium text-[#01321F]">
                             No, you can’t cancel the parcel once the order has been placed. Also, no refund will be provided once order is placed.
                         </p>
                     </section>

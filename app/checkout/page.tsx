@@ -236,7 +236,7 @@ export default function CheckoutPage() {
             <main className="min-h-screen flex flex-col bg-white">
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
-                    <Loader2 className="w-8 h-8 animate-spin text-[#000000]" />
+                    <Loader2 className="w-8 h-8 animate-spin text-[#01321F]" />
                 </div>
                 <Footer />
             </main>
@@ -251,11 +251,11 @@ export default function CheckoutPage() {
                 <div className="flex-grow flex flex-col items-center justify-center p-4">
                     <div className="max-w-md w-full text-center">
                         <div className="w-16 h-16 bg-[#000000]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg className="w-8 h-8 text-[#000000]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-8 h-8 text-[#01321F]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <h1 className="text-3xl font-serif text-gray-900 mb-3">Sign in to Continue</h1>
+                        <h1 className="text-3xl font-serif text-[#01321F] mb-3">Sign in to Continue</h1>
                         <p className="text-gray-500 mb-8">
                             Please sign in to your account to proceed with checkout. Your cart will be saved to your account.
                         </p>
@@ -267,7 +267,7 @@ export default function CheckoutPage() {
                         </Link>
                         <Link
                             href={`/signup?callbackUrl=/checkout`}
-                            className="block w-full border border-[#000000] text-[#000000] px-8 py-3 uppercase tracking-widest text-xs hover:bg-gray-50 transition duration-300 text-center"
+                            className="block w-full border border-[#000000] text-[#01321F] px-8 py-3 uppercase tracking-widest text-xs hover:bg-gray-50 transition duration-300 text-center"
                         >
                             Create Account
                         </Link>
@@ -288,7 +288,7 @@ export default function CheckoutPage() {
                         <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
                             <AlertCircle className="w-8 h-8 text-amber-600" />
                         </div>
-                        <h1 className="text-3xl font-serif text-gray-900 mb-3">Verify Your Email</h1>
+                        <h1 className="text-3xl font-serif text-[#01321F] mb-3">Verify Your Email</h1>
                         <p className="text-gray-500 mb-8">
                             We've sent a verification link to your email address ({session.user?.email}).
                             Please click the link in that email to proceed to checkout!
@@ -308,7 +308,7 @@ export default function CheckoutPage() {
             <main className="min-h-screen flex flex-col bg-white">
                 <Navbar />
                 <div className="flex-grow flex flex-col items-center justify-center p-4">
-                    <h1 className="text-3xl font-serif text-gray-900 mb-4">Cart Empty</h1>
+                    <h1 className="text-3xl font-serif text-[#01321F] mb-4">Cart Empty</h1>
                     <p className="text-gray-500 mb-8 text-center max-w-md">You need to add items to your cart before checking out.</p>
                     <Link
                         href="/shop"
@@ -332,13 +332,13 @@ export default function CheckoutPage() {
             <div className="flex-grow max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8 w-full">
                 {/* Back Button */}
                 <div className="mb-8">
-                    <Link href="/cart" className="flex items-center text-gray-500 hover:text-black transition">
+                    <Link href="/cart" className="flex items-center text-gray-500 hover:text-[#01321F] transition">
                         <ArrowLeft className="w-5 h-5 mr-1" />
                         <span className="text-sm uppercase tracking-wider">Back to Cart</span>
                     </Link>
                 </div>
 
-                <h1 className="text-4xl font-serif text-gray-900 mb-12">Checkout</h1>
+                <h1 className="text-4xl font-serif text-[#01321F] mb-12">Checkout</h1>
 
                 {error && (
                     <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded text-red-800">
@@ -352,7 +352,7 @@ export default function CheckoutPage() {
                         <form onSubmit={handleSubmitOrder} className="space-y-8">
                             {/* Personal Information */}
                             <div>
-                                <h2 className="text-lg font-serif text-gray-900 mb-6 pb-4 border-b border-gray-200">
+                                <h2 className="text-lg font-serif text-[#01321F] mb-6 pb-4 border-b border-gray-200">
                                     Personal Information
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -400,7 +400,7 @@ export default function CheckoutPage() {
 
                             {/* Billing Address */}
                             <div>
-                                <h2 className="text-lg font-serif text-gray-900 mb-6 pb-4 border-b border-gray-200">
+                                <h2 className="text-lg font-serif text-[#01321F] mb-6 pb-4 border-b border-gray-200">
                                     Billing Address
                                 </h2>
                                 <div>
@@ -421,7 +421,7 @@ export default function CheckoutPage() {
 
                             {/* Shipping Address */}
                             <div>
-                                <h2 className="text-lg font-serif text-gray-900 mb-6 pb-4 border-b border-gray-200">
+                                <h2 className="text-lg font-serif text-[#01321F] mb-6 pb-4 border-b border-gray-200">
                                     Shipping Address
                                 </h2>
                                 <div className="space-y-4">
@@ -481,7 +481,7 @@ export default function CheckoutPage() {
 
                             {/* Special Notes */}
                             <div>
-                                <h2 className="text-lg font-serif text-gray-900 mb-6 pb-4 border-b border-gray-200">
+                                <h2 className="text-lg font-serif text-[#01321F] mb-6 pb-4 border-b border-gray-200">
                                     Additional Information
                                 </h2>
                                 <div>
@@ -513,7 +513,7 @@ export default function CheckoutPage() {
                     {/* Order Summary - Right Side */}
                     <div className="lg:col-span-4">
                         <div className="bg-[#f5f5f5] p-8 sticky top-20">
-                            <h2 className="text-lg font-serif text-gray-900 mb-6">Order Summary</h2>
+                            <h2 className="text-lg font-serif text-[#01321F] mb-6">Order Summary</h2>
 
                             {/* Items */}
                             <div className="space-y-4 mb-6 pb-6 border-b border-gray-300">
@@ -523,7 +523,7 @@ export default function CheckoutPage() {
                                             <p className="font-medium">{item.name}</p>
                                             <p className="text-gray-500">Qty: {item.quantity}</p>
                                         </div>
-                                        <p className="font-medium text-gray-900">₹{item.price * item.quantity}</p>
+                                        <p className="font-medium text-[#01321F]">₹{item.price * item.quantity}</p>
                                     </div>
                                 ))}
                             </div>
@@ -555,8 +555,8 @@ export default function CheckoutPage() {
                             {/* Total */}
                             <div className="border-t border-gray-300 pt-4">
                                 <div className="flex justify-between items-center">
-                                    <span className="text-lg font-serif text-gray-900">Total</span>
-                                    <span className="text-2xl font-bold text-[#000000]">
+                                    <span className="text-lg font-serif text-[#01321F]">Total</span>
+                                    <span className="text-2xl font-bold text-[#01321F]">
                                         {shippingCost !== null ? `₹${total}` : `₹${subtotal}+`}
                                     </span>
                                 </div>

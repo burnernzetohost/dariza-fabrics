@@ -124,7 +124,7 @@ export default function SearchModal() {
 
       {/* Search Icon Button (Desktop Hover, Mobile Tap) */}
       <button
-        className="text-gray-500 hover:text-black transition-colors cursor-pointer flex-shrink-0"
+        className="text-gray-500 hover:text-[#01321F] transition-colors cursor-pointer flex-shrink-0"
         title="Search products"
         onClick={() => setIsMobileOpen(true)}
       >
@@ -172,7 +172,7 @@ export default function SearchModal() {
                     )}
                   </div>
                   <div className="flex-grow min-w-0">
-                    <h4 className="text-xs font-medium text-gray-900 line-clamp-2 group-hover:text-[#000000]">
+                    <h4 className="text-xs font-medium text-[#01321F] line-clamp-2 group-hover:text-[#01321F]">
                       {product.name}
                     </h4>
                   </div>
@@ -197,7 +197,7 @@ export default function SearchModal() {
                 setIsMobileOpen(false);
                 setQuery('');
               }}
-              className="p-2 -ml-2 text-gray-600 hover:text-black"
+              className="p-2 -ml-2 text-gray-600 hover:text-[#01321F]"
             >
               <ArrowLeft className="h-6 w-6" />
             </button>
@@ -213,7 +213,7 @@ export default function SearchModal() {
 
             <button
               onClick={() => mobileInputRef.current?.focus()}
-              className="p-2 -mr-2 text-gray-600 hover:text-black"
+              className="p-2 -mr-2 text-gray-600 hover:text-[#01321F]"
             >
               <Search className="h-6 w-6" />
             </button>
@@ -255,7 +255,7 @@ export default function SearchModal() {
                       />
                     </div>
                     <div className="flex-grow flex items-center min-w-0">
-                      <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-[#000000]">
+                      <h4 className="text-sm font-medium text-[#01321F] line-clamp-2 group-hover:text-[#01321F]">
                         {product.name}
                       </h4>
                     </div>

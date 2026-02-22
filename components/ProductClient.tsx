@@ -105,15 +105,15 @@ export default function ProductClient({ product }: ProductProps) {
                     {/* Product Info */}
                     <div className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
                         <div className="flex justify-between items-start">
-                            <h1 className="text-3xl font-serif text-gray-900 tracking-wide">{product.name}</h1>
+                            <h1 className="text-3xl font-serif text-[#01321F] tracking-wide">{product.name}</h1>
                         </div>
-                        <div className="mt-4 flex items-baseline"><span className="text-xl text-gray-900">₹{Number(product.price).toLocaleString('en-IN')}</span></div>
+                        <div className="mt-4 flex items-baseline"><span className="text-xl text-[#01321F]">₹{Number(product.price).toLocaleString('en-IN')}</span></div>
                         <div className="mt-8 space-y-6 text-sm text-gray-600 leading-relaxed"><p>{product.description}</p></div>
 
                         {/* Sizes */}
                         {sizes.length > 0 && (
                             <div className="mt-8">
-                                <h3 className="text-sm font-medium text-gray-900 mb-4">Select Size</h3>
+                                <h3 className="text-sm font-medium text-[#01321F] mb-4">Select Size</h3>
                                 <div className="grid grid-cols-4 gap-3">
                                     {sizes.every(s => ['S', 'M', 'L', 'XL'].includes(s.toUpperCase())) ? (
                                         // Standard Size Grid: S, M, L, XL
@@ -124,7 +124,7 @@ export default function ProductClient({ product }: ProductProps) {
                                                     key={size}
                                                     disabled={!isAvailable}
                                                     onClick={() => isAvailable && setSelectedSize(size)}
-                                                    className={`relative flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all overflow-hidden ${selectedSize === size ? 'border-[#000000] bg-[#000000] text-white' : (isAvailable ? 'border-gray-200 text-gray-900 hover:border-gray-900' : 'border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50')}`}
+                                                    className={`relative flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all overflow-hidden ${selectedSize === size ? 'border-[#000000] bg-[#000000] text-white' : (isAvailable ? 'border-gray-200 text-[#01321F] hover:border-gray-900' : 'border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50')}`}
                                                 >
                                                     {size}
                                                     {!isAvailable && (
@@ -138,7 +138,7 @@ export default function ProductClient({ product }: ProductProps) {
                                     ) : (
                                         // Custom sizes (like Free Size, custom text, numbers)
                                         sizes.map((size) => (
-                                            <button key={size} onClick={() => setSelectedSize(size)} className={`flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all px-2 ${selectedSize === size ? 'border-[#000000] bg-[#000000] text-white' : 'border-gray-200 text-gray-900 hover:border-gray-900'}`}>
+                                            <button key={size} onClick={() => setSelectedSize(size)} className={`flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all px-2 ${selectedSize === size ? 'border-[#000000] bg-[#000000] text-white' : 'border-gray-200 text-[#01321F] hover:border-gray-900'}`}>
                                                 {size}
                                             </button>
                                         ))
@@ -146,6 +146,17 @@ export default function ProductClient({ product }: ProductProps) {
                                 </div>
                             </div>
                         )}
+
+                        {/* Size Guide Link */}
+                        <div className="mt-6 mb-2">
+                            <p className="text-sm text-gray-600">
+                                Kindly refer to our{' '}
+                                <a href="/size-guide" className="text-[#01321F] underline font-medium hover:text-black transition-colors">
+                                    size guide
+                                </a>
+                                {' '}to ensure a perfect fit
+                            </p>
+                        </div>
 
                         {/* Buttons */}
                         <div className="mt-10 flex gap-4">
@@ -161,7 +172,7 @@ export default function ProductClient({ product }: ProductProps) {
 
                         {/* Details List */}
                         <div className="mt-12 border-t border-gray-200 pt-6">
-                            <h3 className="text-sm font-medium text-gray-900 mb-4">Product Details</h3>
+                            <h3 className="text-sm font-medium text-[#01321F] mb-4">Product Details</h3>
                             <ul className="list-disc pl-5 space-y-2 text-sm text-gray-600">
                                 {details.map((detail, idx) => <li key={idx}>{detail}</li>)}
                             </ul>

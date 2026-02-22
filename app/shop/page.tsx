@@ -82,7 +82,7 @@ export default async function ShopPage() {
                                     </div>
 
                                     <div className="text-center">
-                                        <h3 className="text-sm font-bold uppercase tracking-wide text-gray-900">
+                                        <h3 className="text-sm font-bold uppercase tracking-wide text-[#01321F]">
                                             {product.name}
                                         </h3>
                                         <p className="text-gray-500 text-sm mt-1">₹{Number(product.price).toLocaleString('en-IN')}</p>

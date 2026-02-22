@@ -70,7 +70,7 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
                     <div className="text-center">
-                        <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
+                        <h1 className="text-6xl font-bold text-[#01321F] mb-4">404</h1>
                         <p className="text-xl text-gray-600 mb-8">Category not found</p>
                         <Link
                             href="/"
@@ -113,7 +113,7 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
                     {categoryProducts.length === 0 ? (
                         <div className="text-center py-20">
                             <p className="text-xl text-gray-500">No products found in this collection.</p>
-                            <Link href="/" className="mt-4 inline-block border-b border-black text-black">Return Home</Link>
+                            <Link href="/" className="mt-4 inline-block border-b border-black text-[#01321F]">Return Home</Link>
                         </div>
                     ) : (
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -137,7 +137,7 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
                                     </div>
 
                                     <div className="text-center">
-                                        <h3 className="text-sm font-bold uppercase tracking-wide text-gray-900">
+                                        <h3 className="text-sm font-bold uppercase tracking-wide text-[#01321F]">
                                             {product.name}
                                         </h3>
                                         <p className="text-gray-500 text-sm mt-1">₹{Number(product.price).toLocaleString('en-IN')}</p>

@@ -54,7 +54,7 @@ export default function NewArrivals() {
   if (loading) {
     return (
       <section ref={ref} className="py-20 max-w-7xl mx-auto px-4">
-        <h2 className="text-center font-serif text-4xl mb-12 text-[#000000]">Newest Arrivals</h2>
+        <h2 className="text-center font-serif text-4xl mb-12 text-[#01321F]">Newest Arrivals</h2>
         <div className="text-center text-gray-500">Loading...</div>
       </section>
     );
@@ -62,7 +62,7 @@ export default function NewArrivals() {
 
   return (
     <section ref={ref} className={`py-20 max-w-7xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-      <h2 className="text-center font-serif text-4xl mb-12 text-[#000000]">Newest Arrivals</h2>
+      <h2 className="text-center font-serif text-4xl mb-12 text-[#01321F]">Newest Arrivals</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product, index) => (
           <div key={product.id} className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`} style={{ transitionDelay: isVisible ? `${index * 75}ms` : '0ms' }}>
@@ -90,7 +90,7 @@ export default function NewArrivals() {
             </div>
 
             <div className="text-center cursor-pointer">
-              <h3 className="text-xs font-medium uppercase tracking-wide text-gray-800 hover:text-black">{product.name}</h3>
+              <h3 className="text-xs font-medium uppercase tracking-wide text-gray-800 hover:text-[#01321F]">{product.name}</h3>
               <p className="mt-1 text-sm text-gray-500">
                 {product.sale_price && <span className="text-red-500 mr-2">₹{product.sale_price}</span>}
                 <span className={product.sale_price ? 'line-through text-gray-300' : ''}>₹{product.price}</span>

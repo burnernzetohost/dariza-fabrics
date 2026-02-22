@@ -2,7 +2,7 @@ import { Instagram, Facebook, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200 text-black py-12">
+    <footer className="bg-white border-t border-gray-200 text-[#01321F] py-12">
       <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-center md:text-left flex flex-col md:flex-row items-center gap-4">
           <div>
@@ -10,19 +10,19 @@ export default function Footer() {
             <p className="text-xs text-gray-500">All rights reserved.</p>
           </div>
           <div className="hidden md:block w-px h-8 bg-gray-200 mx-4"></div>
-          <a href="/about" className="text-xs text-gray-500 hover:text-black transition uppercase tracking-wider">
+          <a href="/about" className="text-xs text-gray-500 hover:text-[#01321F] transition uppercase tracking-wider">
             About Us
           </a>
           <div className="hidden md:block w-px h-8 bg-gray-200 mx-4"></div>
-          <a href="/contact" className="text-xs text-gray-500 hover:text-black transition uppercase tracking-wider">
+          <a href="/contact" className="text-xs text-gray-500 hover:text-[#01321F] transition uppercase tracking-wider">
             Contact Us
           </a>
           <div className="hidden md:block w-px h-8 bg-gray-200 mx-4"></div>
-          <a href="/cancellation-exchange" className="text-xs text-gray-500 hover:text-black transition uppercase tracking-wider">
+          <a href="/cancellation-exchange" className="text-xs text-gray-500 hover:text-[#01321F] transition uppercase tracking-wider">
             Cancellation Policy
           </a>
           <div className="hidden md:block w-px h-8 bg-gray-200 mx-4"></div>
-          <a href="/shipping-policy" className="text-xs text-gray-500 hover:text-black transition uppercase tracking-wider">
+          <a href="/shipping-policy" className="text-xs text-gray-500 hover:text-[#01321F] transition uppercase tracking-wider">
             Shipping Policy
           </a>
         </div>
@@ -32,7 +32,7 @@ export default function Footer() {
             href="https://www.instagram.com/darizafabrics/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-black transition"
+            className="text-gray-500 hover:text-[#01321F] transition"
             aria-label="Instagram"
           >
             <Instagram className="w-5 h-5" />
@@ -41,7 +41,7 @@ export default function Footer() {
             href="https://www.facebook.com/profile.php?id=61582389920643&rdid=2nzFcrLbsyIKIVuF&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1CjEGy9h9T%2F#"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-black transition"
+            className="text-gray-500 hover:text-[#01321F] transition"
             aria-label="Facebook"
           >
             <Facebook className="w-5 h-5" />
@@ -50,7 +50,7 @@ export default function Footer() {
             href="https://api.whatsapp.com/send/?phone=919055569991&text=Hi+Dariza+Fabrics%2C+I+have+a+query.&type=phone_number&app_absent=0"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-500 hover:text-black transition"
+            className="text-gray-500 hover:text-[#01321F] transition"
             aria-label="WhatsApp"
           >
             <Phone className="w-5 h-5" />

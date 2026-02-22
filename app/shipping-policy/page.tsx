@@ -21,7 +21,7 @@ export default function ShippingPolicyPage() {
 
                     {/* Intro */}
                     <div className="space-y-4">
-                        <h2 className="text-2xl font-serif text-black font-bold uppercase tracking-wide">
+                        <h2 className="text-2xl font-serif text-[#01321F] font-bold uppercase tracking-wide">
                             Welcome to Dariza Fabrics
                         </h2>
                         <p className="font-light text-lg text-gray-700">
@@ -31,12 +31,12 @@ export default function ShippingPolicyPage() {
 
                     {/* DELIVERY Section */}
                     <section className="space-y-8">
-                        <h2 className="text-3xl font-lush text-black mb-6 border-b border-gray-200 pb-2">
+                        <h2 className="text-3xl font-lush text-[#01321F] mb-6 border-b border-gray-200 pb-2">
                             DELIVERY
                         </h2>
 
                         <div className="space-y-2">
-                            <h3 className="font-bold text-black uppercase tracking-wide">How does the delivery process work?</h3>
+                            <h3 className="font-bold text-[#01321F] uppercase tracking-wide">How does the delivery process work?</h3>
                             <ul className="list-disc pl-5 space-y-2 text-gray-700">
                                 <li>Once you have placed an order on our website, our system starts processing your order almost immediately.</li>
                                 <li>Next, your item is passed through a quality check before handing over to the courier partner.</li>
@@ -46,7 +46,7 @@ export default function ShippingPolicyPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <h3 className="font-bold text-black uppercase tracking-wide">What is the estimated delivery time?</h3>
+                            <h3 className="font-bold text-[#01321F] uppercase tracking-wide">What is the estimated delivery time?</h3>
                             <p className="text-gray-700">
                                 We religiously aim to ship the products as soon as possible so that it reaches you within <strong>9 to 12 working days</strong>.
                             </p>
@@ -60,31 +60,31 @@ export default function ShippingPolicyPage() {
 
                     {/* DOMESTIC SHIPPING Section */}
                     <section className="space-y-8">
-                        <h2 className="text-3xl font-lush text-black mb-6 border-b border-gray-200 pb-2">
+                        <h2 className="text-3xl font-lush text-[#01321F] mb-6 border-b border-gray-200 pb-2">
                             DOMESTIC SHIPPING
                         </h2>
 
                         <div className="space-y-2">
-                            <h3 className="font-bold text-black uppercase tracking-wide">Do you provide shipping all over India?</h3>
+                            <h3 className="font-bold text-[#01321F] uppercase tracking-wide">Do you provide shipping all over India?</h3>
                             <p className="text-gray-700">Yes.</p>
                         </div>
 
                         <div className="space-y-2">
-                            <h3 className="font-bold text-black uppercase tracking-wide">Which locations do you ship your products?</h3>
+                            <h3 className="font-bold text-[#01321F] uppercase tracking-wide">Which locations do you ship your products?</h3>
                             <p className="text-gray-700">
                                 Dariza Fabrics ships throughout India so you can receive your order in any corner of the country within the confines of your home.
                             </p>
                         </div>
 
                         <div className="space-y-2">
-                            <h3 className="font-bold text-black uppercase tracking-wide">Do you provide a Cash on Delivery method?</h3>
+                            <h3 className="font-bold text-[#01321F] uppercase tracking-wide">Do you provide a Cash on Delivery method?</h3>
                             <p className="text-gray-700">
                                 We do not provide COD as of now.
                             </p>
                         </div>
 
                         <div className="space-y-2">
-                            <h3 className="font-bold text-black uppercase tracking-wide">How are orders packaged?</h3>
+                            <h3 className="font-bold text-[#01321F] uppercase tracking-wide">How are orders packaged?</h3>
                             <p className="text-gray-700">
                                 We go an extra mile to make sure you receive your order in top-notch condition. Each item is wrapped in sturdy packaging so that it stays free from any physical damage.
                             </p>
@@ -94,9 +94,9 @@ export default function ShippingPolicyPage() {
                         </div>
 
                         <div className="space-y-2">
-                            <h3 className="font-bold text-black uppercase tracking-wide">Can I modify the shipping address of my order after it has been placed?</h3>
+                            <h3 className="font-bold text-[#01321F] uppercase tracking-wide">Can I modify the shipping address of my order after it has been placed?</h3>
                             <p className="text-gray-700">
-                                Yes, you can change the shipping address <strong>before</strong> we have processed (shipped) your order, by mailing us on — <a href="mailto:info@darizafabrics.com" className="underline hover:text-black font-medium">info@darizafabrics.com</a> or WhatsApp our customer support team at <a href="https://api.whatsapp.com/send/?phone=919055569991" className="underline hover:text-black font-medium">+91-9055569991</a>.
+                                Yes, you can change the shipping address <strong>before</strong> we have processed (shipped) your order, by mailing us on — <a href="mailto:info@darizafabrics.com" className="underline hover:text-[#01321F] font-medium">info@darizafabrics.com</a> or WhatsApp our customer support team at <a href="https://api.whatsapp.com/send/?phone=919055569991" className="underline hover:text-[#01321F] font-medium">+91-9055569991</a>.
                             </p>
                         </div>
                     </section>

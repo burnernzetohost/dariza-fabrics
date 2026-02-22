@@ -56,13 +56,13 @@ export default function Navbar() {
             <div className="flex items-center">
               {/* Desktop Nav Links */}
               <div className="hidden sm:flex space-x-8 text-xs font-medium tracking-widest uppercase text-gray-600">
-                <Link href="/" className="hover:text-black transition-colors">Home</Link>
+                <Link href="/" className="hover:text-[#01321F] transition-colors">Home</Link>
                 {session && (session.user as any)?.admin ? (
-                  <Link href="/admin" className="hover:text-black transition-colors">Admin</Link>
+                  <Link href="/admin" className="hover:text-[#01321F] transition-colors">Admin</Link>
                 ) : (
                   <>
-                    <Link href="/shop" className="hover:text-black transition-colors">Shop</Link>
-                    <Link href="/about" className="hover:text-black transition-colors">About</Link>
+                    <Link href="/shop" className="hover:text-[#01321F] transition-colors">Shop</Link>
+                    <Link href="/about" className="hover:text-[#01321F] transition-colors">About</Link>
                   </>
                 )}
               </div>
@@ -70,7 +70,7 @@ export default function Navbar() {
               {/* Mobile Logo */}
               <Link
                 href="/"
-                className={`${lushFont.className} sm:hidden text-3xl text-black mt-1`}
+                className={`${lushFont.className} sm:hidden text-3xl text-[#01321F] mt-1`}
                 style={{ fontWeight: 'normal' }}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -82,7 +82,7 @@ export default function Navbar() {
             <div className="hidden sm:flex flex-shrink-0 items-center justify-center absolute left-1/2 transform -translate-x-1/2 tracking-wide mt-1">
               <Link
                 href="/"
-                className={`${lushFont.className} text-3xl text-black`}
+                className={`${lushFont.className} text-3xl text-[#01321F]`}
                 style={{ fontWeight: 'normal' }}
               >
                 DARIZA FABRICS
@@ -99,7 +99,7 @@ export default function Navbar() {
                   <>
                     <button
                       onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                      className="flex items-center space-x-2 text-gray-500 hover:text-black transition-colors"
+                      className="flex items-center space-x-2 text-gray-500 hover:text-[#01321F] transition-colors"
                     >
                       <User className="h-5 w-5" />
                     </button>
@@ -108,7 +108,7 @@ export default function Navbar() {
                     {isUserMenuOpen && (
                       <div className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-100 py-2 z-50">
                         <div className="px-4 py-3 border-b border-gray-100">
-                          <p className="text-sm font-medium text-gray-900 truncate">
+                          <p className="text-sm font-medium text-[#01321F] truncate">
                             {session.user.name || 'User'}
                           </p>
                           <p className="text-xs text-gray-500 truncate">
@@ -135,13 +135,13 @@ export default function Navbar() {
                   </>
                 ) : (
                   <Link href="/login">
-                    <User className="h-5 w-5 text-gray-500 hover:text-black cursor-pointer transition-colors" />
+                    <User className="h-5 w-5 text-gray-500 hover:text-[#01321F] cursor-pointer transition-colors" />
                   </Link>
                 )}
               </div>
 
               <Link href="/cart" className="relative group">
-                <ShoppingBag className="h-5 w-5 text-gray-500 group-hover:text-black cursor-pointer transition-colors" />
+                <ShoppingBag className="h-5 w-5 text-gray-500 group-hover:text-[#01321F] cursor-pointer transition-colors" />
                 {totalItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-[#000000] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full animate-in fade-in zoom-in duration-300">
                     {totalItems}
@@ -152,7 +152,7 @@ export default function Navbar() {
               {/* Mobile Hamburger Menu Toggle */}
               <button
                 onClick={toggleMenu}
-                className="sm:hidden text-black focus:outline-none z-50 relative transition-transform duration-300 ease-in-out"
+                className="sm:hidden text-[#01321F] focus:outline-none z-50 relative transition-transform duration-300 ease-in-out"
                 style={{
                   transform: isMenuOpen ? 'rotate(90deg)' : 'rotate(0deg)'
                 }}
@@ -176,7 +176,7 @@ export default function Navbar() {
           <div className="flex flex-col p-8 space-y-6 text-center h-full bg-white">
             <Link
               href="/"
-              className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-black"
+              className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-[#01321F]"
               onClick={() => setIsMenuOpen(false)}
             >
               Home
@@ -184,7 +184,7 @@ export default function Navbar() {
             {session && (session.user as any)?.admin ? (
               <Link
                 href="/admin"
-                className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-black"
+                className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-[#01321F]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Admin
@@ -192,7 +192,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/shop"
-                className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-black"
+                className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-[#01321F]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Shop
@@ -203,7 +203,7 @@ export default function Navbar() {
               <>
                 <Link
                   href="/profile"
-                  className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-black"
+                  className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-[#01321F]"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   My Profile
@@ -221,7 +221,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-black"
+                className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-[#01321F]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Log In / Sign Up
@@ -232,14 +232,14 @@ export default function Navbar() {
               <>
                 <Link
                   href="/about"
-                  className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-black"
+                  className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-[#01321F]"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   About Us
                 </Link>
                 <Link
                   href="/contact"
-                  className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-black"
+                  className="text-xl font-medium uppercase tracking-widest text-gray-800 hover:text-[#01321F]"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Contact Us
