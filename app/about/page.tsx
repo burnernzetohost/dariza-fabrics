@@ -10,11 +10,11 @@ export default function AboutPage() {
 
             <div className="flex-grow">
                 {/* Header Section */}
-                <div className="bg-[#012d20] py-20 text-center px-4">
-                    <h1 className="font-lush text-5xl md:text-7xl mb-6 text-[#DCf9f1]">
+                <div className="bg-[#000000] py-20 text-center px-4">
+                    <h1 className="font-lush text-5xl md:text-7xl mb-6 text-[#ffffff]">
                         DARIZA FABRICS
                     </h1>
-                    <p className="font-script text-2xl text-[#DCf9f1]/80 max-w-2xl mx-auto">
+                    <p className="font-script text-2xl text-[#ffffff]/80 max-w-2xl mx-auto">
                         Our Story.
                     </p>
                 </div>

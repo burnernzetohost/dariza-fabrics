@@ -143,7 +143,7 @@ export default function Navbar() {
               <Link href="/cart" className="relative group">
                 <ShoppingBag className="h-5 w-5 text-gray-500 group-hover:text-black cursor-pointer transition-colors" />
                 {totalItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-[#012d20] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full animate-in fade-in zoom-in duration-300">
+                  <span className="absolute -top-2 -right-2 bg-[#000000] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full animate-in fade-in zoom-in duration-300">
                     {totalItems}
                   </span>
                 )}

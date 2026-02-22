@@ -110,7 +110,7 @@ export default function SearchModal() {
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="flex-grow px-0 py-1 text-sm border-0 border-b border-gray-300 focus:outline-none focus:border-[#012d20] bg-transparent"
+          className="flex-grow px-0 py-1 text-sm border-0 border-b border-gray-300 focus:outline-none focus:border-[#000000] bg-transparent"
         />
         {query && (
           <button
@@ -136,7 +136,7 @@ export default function SearchModal() {
         <div className="hidden md:block absolute left-0 right-0 top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-w-sm">
           {loading && (
             <div className="text-center py-4">
-              <div className="inline-block h-4 w-4 border-2 border-gray-300 border-t-[#012d20] rounded-full animate-spin" />
+              <div className="inline-block h-4 w-4 border-2 border-gray-300 border-t-[#000000] rounded-full animate-spin" />
             </div>
           )}
 
@@ -172,7 +172,7 @@ export default function SearchModal() {
                     )}
                   </div>
                   <div className="flex-grow min-w-0">
-                    <h4 className="text-xs font-medium text-gray-900 line-clamp-2 group-hover:text-[#012d20]">
+                    <h4 className="text-xs font-medium text-gray-900 line-clamp-2 group-hover:text-[#000000]">
                       {product.name}
                     </h4>
                   </div>
@@ -223,7 +223,7 @@ export default function SearchModal() {
           <div className="flex-grow bg-white overflow-y-auto w-full px-4 pt-4 pb-20">
             {loading && (
               <div className="text-center py-8">
-                <div className="inline-block h-6 w-6 border-2 border-gray-300 border-t-[#012d20] rounded-full animate-spin" />
+                <div className="inline-block h-6 w-6 border-2 border-gray-300 border-t-[#000000] rounded-full animate-spin" />
               </div>
             )}
 
@@ -255,7 +255,7 @@ export default function SearchModal() {
                       />
                     </div>
                     <div className="flex-grow flex items-center min-w-0">
-                      <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-[#012d20]">
+                      <h4 className="text-sm font-medium text-gray-900 line-clamp-2 group-hover:text-[#000000]">
                         {product.name}
                       </h4>
                     </div>

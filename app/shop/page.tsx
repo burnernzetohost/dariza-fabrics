@@ -38,18 +38,18 @@ export default async function ShopPage() {
 
             <div className="flex-grow">
                 {/* Page Header */}
-                <div className="bg-[#012d20] py-16 text-center px-4">
-                    <h1 className="font-lush text-5xl md:text-7xl mb-4 text-[#DCf9f1] capitalize">
+                <div className="bg-[#000000] py-16 text-center px-4">
+                    <h1 className="font-lush text-5xl md:text-7xl mb-4 text-[#ffffff] capitalize">
                         The Collection
                     </h1>
-                    <p className="font-script text-2xl text-[#DCf9f1]/80 mb-8">
+                    <p className="font-script text-2xl text-[#ffffff]/80 mb-8">
                         Explore our exclusive range.
                     </p>
 
                     {/* Breadcrumb / Back Link */}
                     <Link
                         href="/"
-                        className="inline-flex items-center text-xs uppercase tracking-widest text-[#DCf9f1]/60 hover:text-white transition"
+                        className="inline-flex items-center text-xs uppercase tracking-widest text-[#ffffff]/60 hover:text-white transition"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
                     </Link>
@@ -76,7 +76,7 @@ export default async function ShopPage() {
                                             fill
                                             className="object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
-                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#012d20] text-white text-xs uppercase tracking-widest px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[90%] text-center">
+                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#000000] text-white text-xs uppercase tracking-widest px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[90%] text-center">
                                             Add to Cart
                                         </div>
                                     </div>

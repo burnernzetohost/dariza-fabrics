@@ -20,33 +20,33 @@ export default function RichTextEditor({ value, onChange }: { value: string, onC
     const wordCount = editor.getText().trim().split(/\s+/).filter(word => word.length > 0).length;
 
     return (
-        <div className="border border-gray-300 rounded-lg overflow-hidden flex flex-col focus-within:ring-2 focus-within:ring-[#012d20]">
+        <div className="border border-gray-300 rounded-lg overflow-hidden flex flex-col focus-within:ring-2 focus-within:ring-[#000000]">
             <div className="bg-gray-100 flex gap-1 p-2 border-b border-gray-300 flex-wrap">
                 <button
                     type="button"
                     onClick={() => editor.chain().focus().toggleBold().run()}
-                    className={`px-3 py-1 text-sm rounded ${editor.isActive('bold') ? 'bg-[#012d20] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} font-bold transition`}
+                    className={`px-3 py-1 text-sm rounded ${editor.isActive('bold') ? 'bg-[#000000] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} font-bold transition`}
                 >
                     B
                 </button>
                 <button
                     type="button"
                     onClick={() => editor.chain().focus().toggleItalic().run()}
-                    className={`px-3 py-1 text-sm rounded ${editor.isActive('italic') ? 'bg-[#012d20] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} italic transition`}
+                    className={`px-3 py-1 text-sm rounded ${editor.isActive('italic') ? 'bg-[#000000] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} italic transition`}
                 >
                     I
                 </button>
                 <button
                     type="button"
                     onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                    className={`px-3 py-1 text-sm rounded ${editor.isActive('heading', { level: 2 }) ? 'bg-[#012d20] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} font-semibold transition`}
+                    className={`px-3 py-1 text-sm rounded ${editor.isActive('heading', { level: 2 }) ? 'bg-[#000000] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} font-semibold transition`}
                 >
                     H2
                 </button>
                 <button
                     type="button"
                     onClick={() => editor.chain().focus().toggleBulletList().run()}
-                    className={`px-3 py-1 text-sm rounded ${editor.isActive('bulletList') ? 'bg-[#012d20] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} transition`}
+                    className={`px-3 py-1 text-sm rounded ${editor.isActive('bulletList') ? 'bg-[#000000] text-white' : 'bg-white text-gray-700 hover:bg-gray-200'} transition`}
                 >
                     • List
                 </button>

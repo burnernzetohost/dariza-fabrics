@@ -71,7 +71,7 @@ export default async function VerifyEmailPage(props: { searchParams: Promise<{ t
                     <p className="text-gray-700 mb-6">{message}</p>
                     <Link
                         href="/login"
-                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#012d20] hover:bg-[#001a12] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#012d20]"
+                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#000000] hover:bg-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000]"
                     >
                         Sign in to your account
                     </Link>

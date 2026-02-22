@@ -124,7 +124,7 @@ export default function ProductClient({ product }: ProductProps) {
                                                     key={size}
                                                     disabled={!isAvailable}
                                                     onClick={() => isAvailable && setSelectedSize(size)}
-                                                    className={`relative flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all overflow-hidden ${selectedSize === size ? 'border-[#012d20] bg-[#012d20] text-white' : (isAvailable ? 'border-gray-200 text-gray-900 hover:border-gray-900' : 'border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50')}`}
+                                                    className={`relative flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all overflow-hidden ${selectedSize === size ? 'border-[#000000] bg-[#000000] text-white' : (isAvailable ? 'border-gray-200 text-gray-900 hover:border-gray-900' : 'border-gray-200 text-gray-300 cursor-not-allowed bg-gray-50')}`}
                                                 >
                                                     {size}
                                                     {!isAvailable && (
@@ -138,7 +138,7 @@ export default function ProductClient({ product }: ProductProps) {
                                     ) : (
                                         // Custom sizes (like Free Size, custom text, numbers)
                                         sizes.map((size) => (
-                                            <button key={size} onClick={() => setSelectedSize(size)} className={`flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all px-2 ${selectedSize === size ? 'border-[#012d20] bg-[#012d20] text-white' : 'border-gray-200 text-gray-900 hover:border-gray-900'}`}>
+                                            <button key={size} onClick={() => setSelectedSize(size)} className={`flex items-center justify-center py-3 border text-sm font-medium uppercase transition-all px-2 ${selectedSize === size ? 'border-[#000000] bg-[#000000] text-white' : 'border-gray-200 text-gray-900 hover:border-gray-900'}`}>
                                                 {size}
                                             </button>
                                         ))
@@ -152,7 +152,7 @@ export default function ProductClient({ product }: ProductProps) {
                             <button
                                 id="main-atc-button"
                                 onClick={handleAddToCart}
-                                className={`flex-1 text-white py-4 px-8 uppercase tracking-widest text-sm font-bold transition ${isAdded ? 'bg-green-600 hover:bg-green-700' : 'bg-[#012d20] hover:bg-[#001a12]'}`}
+                                className={`flex-1 text-white py-4 px-8 uppercase tracking-widest text-sm font-bold transition ${isAdded ? 'bg-green-600 hover:bg-green-700' : 'bg-[#000000] hover:bg-[#1a1a1a]'}`}
                             >
                                 {isAdded ? 'Added to Cart' : 'Add to Cart'}
                             </button>
@@ -175,7 +175,7 @@ export default function ProductClient({ product }: ProductProps) {
                 <div className="flex gap-4">
                     <button
                         onClick={handleAddToCart}
-                        className={`flex-1 text-white py-3 px-8 uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 transition ${isAdded ? 'bg-green-600 hover:bg-green-700' : 'bg-[#012d20] hover:bg-[#001a12]'}`}
+                        className={`flex-1 text-white py-3 px-8 uppercase tracking-widest text-sm font-bold flex items-center justify-center gap-2 transition ${isAdded ? 'bg-green-600 hover:bg-green-700' : 'bg-[#000000] hover:bg-[#1a1a1a]'}`}
                     >
                         <span>{isAdded ? 'Added to Cart' : 'Add to Cart'}</span>
                     </button>

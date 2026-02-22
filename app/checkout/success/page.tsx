@@ -41,7 +41,7 @@ function SuccessContent() {
             <div className="space-y-3">
                 <Link
                     href="/shop"
-                    className="block bg-[#012d20] text-white py-3 uppercase tracking-widest text-xs font-medium hover:bg-[#001a12] transition duration-300"
+                    className="block bg-[#000000] text-white py-3 uppercase tracking-widest text-xs font-medium hover:bg-[#1a1a1a] transition duration-300"
                 >
                     Continue Shopping
                 </Link>

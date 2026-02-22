@@ -25,7 +25,7 @@ export default function Hero({ initialImages = [] }: HeroProps) {
   }, [images.length]);
 
   return (
-    <div className="relative h-[85vh] w-full bg-[#DCf9f1] overflow-hidden">
+    <div className="relative h-[85vh] w-full bg-[#ffffff] overflow-hidden">
       {/* Slideshow Images */}
       {images.map((src, index) => (
         <div
@@ -50,10 +50,10 @@ export default function Hero({ initialImages = [] }: HeroProps) {
           Explore the latest range
         </p>
         <div className="flex gap-4">
-          <button className="bg-[#012d20] text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-[#001a12] transition border border-[#012d20]">
+          <button className="bg-[#000000] text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-[#1a1a1a] transition border border-[#000000]">
             Shop Latest
           </button>
-          <button className="border border-white text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-white hover:text-[#012d20] transition">
+          <button className="border border-white text-white px-8 py-3 text-xs uppercase tracking-widest hover:bg-white hover:text-[#000000] transition">
             Best Selling
           </button>
         </div>

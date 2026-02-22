@@ -74,7 +74,7 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
                         <p className="text-xl text-gray-600 mb-8">Category not found</p>
                         <Link
                             href="/"
-                            className="inline-block bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300"
+                            className="inline-block bg-[#000000] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#1a1a1a] transition duration-300"
                         >
                             Back to Home
                         </Link>
@@ -92,17 +92,17 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
 
             <div className="flex-grow">
                 {/* Page Header (Your Custom Design) */}
-                <div className="bg-[#012d20] py-16 text-center px-4">
-                    <h1 className="font-lush text-5xl md:text-7xl mb-4 text-[#DCf9f1] capitalize">
+                <div className="bg-[#000000] py-16 text-center px-4">
+                    <h1 className="font-lush text-5xl md:text-7xl mb-4 text-[#ffffff] capitalize">
                         {getCategoryTitle(category)}
                     </h1>
-                    <p className="font-script text-2xl text-[#DCf9f1]/80 mb-8">
+                    <p className="font-script text-2xl text-[#ffffff]/80 mb-8">
                         {getCategorySubtitle(category)}
                     </p>
 
                     <Link
                         href="/"
-                        className="inline-flex items-center text-xs uppercase tracking-widest text-[#DCf9f1]/60 hover:text-white transition"
+                        className="inline-flex items-center text-xs uppercase tracking-widest text-[#ffffff]/60 hover:text-white transition"
                     >
                         <ArrowLeft className="w-4 h-4 mr-2" /> Back to Home
                     </Link>
@@ -131,7 +131,7 @@ export default async function CategoryPage(props: { params: Promise<{ category: 
                                             fill
                                             className="object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
-                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#012d20] text-white text-xs uppercase tracking-widest px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[90%] text-center">
+                                        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#000000] text-white text-xs uppercase tracking-widest px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[90%] text-center">
                                             Add to Cart
                                         </div>
                                     </div>

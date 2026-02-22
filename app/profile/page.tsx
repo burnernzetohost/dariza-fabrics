@@ -22,7 +22,7 @@ export default function ProfilePage() {
             <main className="min-h-screen flex flex-col bg-white">
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
-                    <div className="animate-spin h-12 w-12 border-4 border-[#012d20] border-t-transparent rounded-full"></div>
+                    <div className="animate-spin h-12 w-12 border-4 border-[#000000] border-t-transparent rounded-full"></div>
                 </div>
                 <Footer />
             </main>
@@ -39,11 +39,11 @@ export default function ProfilePage() {
 
             <div className="flex-grow">
                 {/* Header Section */}
-                <div className="bg-[#012d20] py-16 md:py-20 text-center px-4">
-                    <h1 className="font-lush text-4xl md:text-6xl mb-4 text-[#DCf9f1]">
+                <div className="bg-[#000000] py-16 md:py-20 text-center px-4">
+                    <h1 className="font-lush text-4xl md:text-6xl mb-4 text-[#ffffff]">
                         My Profile
                     </h1>
-                    <p className="font-script text-xl md:text-2xl text-[#DCf9f1]/80 max-w-2xl mx-auto">
+                    <p className="font-script text-xl md:text-2xl text-[#ffffff]/80 max-w-2xl mx-auto">
                         Manage your account information
                     </p>
                 </div>
@@ -57,11 +57,11 @@ export default function ProfilePage() {
                                 <img
                                     src={session.user.image}
                                     alt={session.user.name || 'User'}
-                                    className="w-24 h-24 rounded-full mb-4 border-4 border-[#012d20]"
+                                    className="w-24 h-24 rounded-full mb-4 border-4 border-[#000000]"
                                 />
                             ) : (
-                                <div className="w-24 h-24 rounded-full bg-[#012d20] flex items-center justify-center mb-4">
-                                    <UserCircle className="w-16 h-16 text-[#DCf9f1]" />
+                                <div className="w-24 h-24 rounded-full bg-[#000000] flex items-center justify-center mb-4">
+                                    <UserCircle className="w-16 h-16 text-[#ffffff]" />
                                 </div>
                             )}
                             <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -101,7 +101,7 @@ export default function ProfilePage() {
                             </div>
 
                             {/* Account Type */}
-                            <div className="mt-8 p-4 bg-[#DCf9f1]/20 border border-[#012d20]/20 rounded-md">
+                            <div className="mt-8 p-4 bg-[#ffffff]/20 border border-[#000000]/20 rounded-md">
                                 <p className="text-sm text-gray-700">
                                     <span className="font-semibold">Account Status:</span> Active
                                 </p>

@@ -140,7 +140,7 @@ export default function CheckoutPage() {
                     contact: formData.customer_phone,
                 },
                 theme: {
-                    color: '#012d20',
+                    color: '#000000',
                 },
                 handler: async function (response: any) {
                     try {
@@ -236,7 +236,7 @@ export default function CheckoutPage() {
             <main className="min-h-screen flex flex-col bg-white">
                 <Navbar />
                 <div className="flex-grow flex items-center justify-center">
-                    <Loader2 className="w-8 h-8 animate-spin text-[#012d20]" />
+                    <Loader2 className="w-8 h-8 animate-spin text-[#000000]" />
                 </div>
                 <Footer />
             </main>
@@ -250,8 +250,8 @@ export default function CheckoutPage() {
                 <Navbar />
                 <div className="flex-grow flex flex-col items-center justify-center p-4">
                     <div className="max-w-md w-full text-center">
-                        <div className="w-16 h-16 bg-[#012d20]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                            <svg className="w-8 h-8 text-[#012d20]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-16 h-16 bg-[#000000]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg className="w-8 h-8 text-[#000000]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
@@ -261,13 +261,13 @@ export default function CheckoutPage() {
                         </p>
                         <Link
                             href={`/login?callbackUrl=/checkout`}
-                            className="block w-full bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300 text-center mb-4"
+                            className="block w-full bg-[#000000] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#1a1a1a] transition duration-300 text-center mb-4"
                         >
                             Sign In
                         </Link>
                         <Link
                             href={`/signup?callbackUrl=/checkout`}
-                            className="block w-full border border-[#012d20] text-[#012d20] px-8 py-3 uppercase tracking-widest text-xs hover:bg-gray-50 transition duration-300 text-center"
+                            className="block w-full border border-[#000000] text-[#000000] px-8 py-3 uppercase tracking-widest text-xs hover:bg-gray-50 transition duration-300 text-center"
                         >
                             Create Account
                         </Link>
@@ -312,7 +312,7 @@ export default function CheckoutPage() {
                     <p className="text-gray-500 mb-8 text-center max-w-md">You need to add items to your cart before checking out.</p>
                     <Link
                         href="/shop"
-                        className="bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300"
+                        className="bg-[#000000] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#1a1a1a] transition duration-300"
                     >
                         Continue Shopping
                     </Link>
@@ -365,7 +365,7 @@ export default function CheckoutPage() {
                                             name="customer_name"
                                             value={formData.customer_name}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#000000] focus:outline-none transition"
                                             required
                                         />
                                     </div>
@@ -378,7 +378,7 @@ export default function CheckoutPage() {
                                             name="customer_email"
                                             value={formData.customer_email}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#000000] focus:outline-none transition"
                                             required
                                         />
                                     </div>
@@ -391,7 +391,7 @@ export default function CheckoutPage() {
                                             name="customer_phone"
                                             value={formData.customer_phone}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#000000] focus:outline-none transition"
                                             required
                                         />
                                     </div>
@@ -413,7 +413,7 @@ export default function CheckoutPage() {
                                         onChange={handleInputChange}
                                         rows={3}
                                         placeholder="Street address, city, state, postal code"
-                                        className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                        className="w-full px-4 py-3 border border-gray-300 focus:border-[#000000] focus:outline-none transition"
                                         required
                                     ></textarea>
                                 </div>
@@ -435,7 +435,7 @@ export default function CheckoutPage() {
                                             onChange={handleInputChange}
                                             rows={3}
                                             placeholder="Street address, city, state"
-                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#000000] focus:outline-none transition"
                                             required
                                         ></textarea>
                                     </div>
@@ -450,7 +450,7 @@ export default function CheckoutPage() {
                                             onChange={handleInputChange}
                                             maxLength={6}
                                             placeholder="Enter 6-digit pincode"
-                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#000000] focus:outline-none transition"
                                             required
                                         />
                                         {/* Shipping rate feedback */}
@@ -494,7 +494,7 @@ export default function CheckoutPage() {
                                         onChange={handleInputChange}
                                         rows={3}
                                         placeholder="Any special instructions or notes..."
-                                        className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                        className="w-full px-4 py-3 border border-gray-300 focus:border-[#000000] focus:outline-none transition"
                                     ></textarea>
                                 </div>
                             </div>
@@ -503,7 +503,7 @@ export default function CheckoutPage() {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="w-full bg-[#012d20] text-white py-4 uppercase tracking-widest text-sm font-medium hover:bg-[#001a12] transition duration-300 disabled:opacity-50"
+                                className="w-full bg-[#000000] text-white py-4 uppercase tracking-widest text-sm font-medium hover:bg-[#1a1a1a] transition duration-300 disabled:opacity-50"
                             >
                                 {loading ? 'Processing Order...' : 'Proceed to Payment'}
                             </button>
@@ -556,7 +556,7 @@ export default function CheckoutPage() {
                             <div className="border-t border-gray-300 pt-4">
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg font-serif text-gray-900">Total</span>
-                                    <span className="text-2xl font-bold text-[#012d20]">
+                                    <span className="text-2xl font-bold text-[#000000]">
                                         {shippingCost !== null ? `₹${total}` : `₹${subtotal}+`}
                                     </span>
                                 </div>

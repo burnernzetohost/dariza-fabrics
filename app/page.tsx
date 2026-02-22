@@ -24,7 +24,7 @@ export default async function Home() {
   const heroImages = await getHeroImages();
 
   return (
-    <main className="min-h-screen bg-[#DCf9f1]">
+    <main className="min-h-screen bg-[#ffffff]">
       <Navbar />
       <Hero initialImages={heroImages} />
       <PromoStrip />

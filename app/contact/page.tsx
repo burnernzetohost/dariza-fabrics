@@ -11,11 +11,11 @@ export default function ContactPage() {
 
             <div className="flex-grow">
                 {/* Header Section */}
-                <div className="bg-[#012d20] py-20 text-center px-4">
-                    <h1 className="font-lush text-5xl md:text-7xl mb-6 text-[#DCf9f1]">
+                <div className="bg-[#000000] py-20 text-center px-4">
+                    <h1 className="font-lush text-5xl md:text-7xl mb-6 text-[#ffffff]">
                         Get in Touch
                     </h1>
-                    <p className="font-script text-2xl text-[#DCf9f1]/80 max-w-2xl mx-auto">
+                    <p className="font-script text-2xl text-[#ffffff]/80 max-w-2xl mx-auto">
                         We'd love to hear from you.
                     </p>
                 </div>
@@ -77,7 +77,7 @@ export default function ContactPage() {
                                 <div>
                                     <button
                                         type="submit"
-                                        className="w-full flex justify-center py-4 px-8 border border-transparent shadow-sm text-sm font-medium text-white bg-[#012d20] hover:bg-[#001a12] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#012d20] uppercase tracking-widest transition-colors"
+                                        className="w-full flex justify-center py-4 px-8 border border-transparent shadow-sm text-sm font-medium text-white bg-[#000000] hover:bg-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#000000] uppercase tracking-widest transition-colors"
                                     >
                                         Send Message
                                     </button>

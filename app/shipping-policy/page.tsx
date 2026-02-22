@@ -10,8 +10,8 @@ export default function ShippingPolicyPage() {
 
             <div className="flex-grow">
                 {/* Header Section */}
-                <div className="bg-[#012d20] py-20 text-center px-4">
-                    <h1 className="font-lush text-4xl md:text-6xl mb-6 text-[#DCf9f1]">
+                <div className="bg-[#000000] py-20 text-center px-4">
+                    <h1 className="font-lush text-4xl md:text-6xl mb-6 text-[#ffffff]">
                         Shipping Policy
                     </h1>
                 </div>

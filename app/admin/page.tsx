@@ -157,7 +157,7 @@ function OrdersSection() {
                                             <h3 className="font-semibold text-gray-900">{item.product_name}</h3>
                                             <p className="text-gray-600 text-sm">Quantity: {item.quantity}</p>
                                             <p className="text-gray-600 text-sm">Price: ₹{item.price_per_unit}</p>
-                                            <p className="font-bold text-[#012d20]">₹{item.quantity * item.price_per_unit}</p>
+                                            <p className="font-bold text-[#000000]">₹{item.quantity * item.price_per_unit}</p>
                                         </div>
                                     </div>
                                 ))}
@@ -193,7 +193,7 @@ function OrdersSection() {
                             {/* Total */}
                             <div className="border-t pt-4 bg-gray-50 p-3 rounded">
                                 <p className="text-sm text-gray-600">Total Amount</p>
-                                <p className="text-2xl font-bold text-[#012d20]">₹{selectedOrder.total_amount}</p>
+                                <p className="text-2xl font-bold text-[#000000]">₹{selectedOrder.total_amount}</p>
                             </div>
 
                             {/* Status Buttons */}
@@ -269,7 +269,7 @@ function OrdersSection() {
                                     {/* Total */}
                                     <div>
                                         <p className="text-xs text-gray-500 uppercase mb-1">Total</p>
-                                        <p className="text-xl font-bold text-[#012d20]">₹{order.total_amount}</p>
+                                        <p className="text-xl font-bold text-[#000000]">₹{order.total_amount}</p>
                                     </div>
 
                                     {/* Status */}
@@ -445,7 +445,7 @@ function UpdateProductsSection() {
                                 type="text"
                                 value={editData.name}
                                 onChange={(e) => handleEditChange('name', e.target.value)}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                             />
                         </div>
 
@@ -456,7 +456,7 @@ function UpdateProductsSection() {
                                 type="text"
                                 value={editData.category}
                                 onChange={(e) => handleEditChange('category', e.target.value)}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                             />
                         </div>
 
@@ -468,7 +468,7 @@ function UpdateProductsSection() {
                                 value={editData.price === null || editData.price === undefined ? '' : editData.price}
                                 onChange={(e) => handleEditChange('price', e.target.value ? parseInt(e.target.value) : 0)}
                                 min="0"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                             />
                         </div>
 
@@ -480,7 +480,7 @@ function UpdateProductsSection() {
                                 value={editData.sale_price === null || editData.sale_price === undefined ? '' : editData.sale_price}
                                 onChange={(e) => handleEditChange('sale_price', e.target.value ? parseInt(e.target.value) : null)}
                                 min="0"
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                             />
                         </div>
 
@@ -491,7 +491,7 @@ function UpdateProductsSection() {
                                 type="text"
                                 value={Array.isArray(editData.sizes) ? editData.sizes.join(', ') : editData.sizes}
                                 onChange={(e) => handleEditChange('sizes', e.target.value.split(',').map(s => s.trim()).filter(s => s))}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                             />
                         </div>
 
@@ -536,7 +536,7 @@ function UpdateProductsSection() {
                                         type="text"
                                         value={editData.meta_title || ''}
                                         onChange={(e) => handleEditChange('meta_title', e.target.value)}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                                     />
                                 </div>
 
@@ -552,7 +552,7 @@ function UpdateProductsSection() {
                                         value={editData.meta_description || ''}
                                         onChange={(e) => handleEditChange('meta_description', e.target.value)}
                                         rows={3}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                                     ></textarea>
                                 </div>
 
@@ -567,7 +567,7 @@ function UpdateProductsSection() {
                                                 const val = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
                                                 handleEditChange('slug', val);
                                             }}
-                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                                         />
                                         <button
                                             onClick={() => handleEditChange('slug', generateSlug(editData.name || ''))}
@@ -623,7 +623,7 @@ function UpdateProductsSection() {
                                                     newImages[idx] = { url: currentUrl, alt: e.target.value };
                                                     handleEditChange('images', newImages);
                                                 }}
-                                                className="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-[#012d20]"
+                                                className="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-[#000000]"
                                             />
                                             <p className="text-[10px] text-gray-400 mt-1 text-right">
                                                 {alt.length} chars
@@ -640,7 +640,7 @@ function UpdateProductsSection() {
                         <button
                             onClick={handleSaveProduct}
                             disabled={saving}
-                            className="px-6 py-2 bg-[#012d20] text-[#DCF9F1] rounded-lg font-medium hover:bg-[#012d20]/90 transition disabled:opacity-50"
+                            className="px-6 py-2 bg-[#000000] text-[#ffffff] rounded-lg font-medium hover:bg-[#000000]/90 transition disabled:opacity-50"
                         >
                             {saving ? 'Saving...' : 'Save Changes'}
                         </button>
@@ -734,10 +734,10 @@ function UpdateProductsSection() {
                                     {product.sale_price ? (
                                         <>
                                             <span className="text-gray-400 line-through text-sm">₹{product.price}</span>
-                                            <span className="font-bold text-[#012d20]">₹{product.sale_price}</span>
+                                            <span className="font-bold text-[#000000]">₹{product.sale_price}</span>
                                         </>
                                     ) : (
-                                        <span className="font-bold text-[#012d20]">₹{product.price}</span>
+                                        <span className="font-bold text-[#000000]">₹{product.price}</span>
                                     )}
                                 </div>
 
@@ -746,7 +746,7 @@ function UpdateProductsSection() {
                                         e.stopPropagation();
                                         handleSelectProduct(product);
                                     }}
-                                    className="w-full py-2 bg-[#012d20] text-[#DCF9F1] rounded font-medium text-sm hover:bg-[#012d20]/90 transition"
+                                    className="w-full py-2 bg-[#000000] text-[#ffffff] rounded font-medium text-sm hover:bg-[#000000]/90 transition"
                                 >
                                     Edit Product
                                 </button>
@@ -996,7 +996,7 @@ function AddProductForm() {
                             name="name"
                             value={formData.name}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000] focus:border-transparent"
                             placeholder="e.g., Midnight Indigo Noir"
                             required
                         />
@@ -1019,7 +1019,7 @@ function AddProductForm() {
                                     setFormData(prev => ({ ...prev, category: e.target.value }));
                                 }
                             }}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000] focus:border-transparent"
                             required={!showCustomCategory}
                         >
                             <option value="">Select Category</option>
@@ -1039,7 +1039,7 @@ function AddProductForm() {
                                     category: e.target.value
                                 }))}
                                 placeholder="Enter new category name (e.g., Winter Coats)"
-                                className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
+                                className="w-full mt-2 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000] focus:border-transparent"
                                 required
                             />
                         )}
@@ -1057,7 +1057,7 @@ function AddProductForm() {
                             onChange={handleInputChange}
                             min="0"
                             step="1"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000] focus:border-transparent"
                             placeholder="e.g., 9999"
                             required
                         />
@@ -1075,7 +1075,7 @@ function AddProductForm() {
                             onChange={handleInputChange}
                             min="0"
                             step="1"
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000] focus:border-transparent"
                             placeholder="e.g., 7999"
                         />
                     </div>
@@ -1090,7 +1090,7 @@ function AddProductForm() {
                             name="sizes"
                             value={formData.sizes}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000] focus:border-transparent"
                             placeholder="e.g., XS, S, M, L, XL"
                         />
                     </div>
@@ -1103,7 +1103,7 @@ function AddProductForm() {
                                 name="newArrival"
                                 checked={formData.newArrival}
                                 onChange={handleCheckboxChange}
-                                className="w-4 h-4 rounded border-gray-300 text-[#012d20] focus:ring-[#012d20]"
+                                className="w-4 h-4 rounded border-gray-300 text-[#000000] focus:ring-[#000000]"
                             />
                             <span className="text-sm font-medium text-gray-700">Mark as New Arrival</span>
                         </label>
@@ -1140,7 +1140,7 @@ function AddProductForm() {
                                     name="metaTitle"
                                     value={formData.metaTitle}
                                     onChange={handleInputChange}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                                 />
                             </div>
 
@@ -1157,7 +1157,7 @@ function AddProductForm() {
                                     value={formData.metaDescription}
                                     onChange={handleInputChange}
                                     rows={3}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                                 ></textarea>
                             </div>
 
@@ -1173,7 +1173,7 @@ function AddProductForm() {
                                             const val = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
                                             setFormData(prev => ({ ...prev, slug: val }));
                                         }}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                                     />
                                     <button
                                         onClick={() => setFormData(prev => ({ ...prev, slug: generateSlug(formData.name) }))}
@@ -1203,7 +1203,7 @@ function AddProductForm() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Product Images *
                     </label>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-[#012d20] transition">
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-[#000000] transition">
                         <input
                             type="file"
                             multiple
@@ -1244,7 +1244,7 @@ function AddProductForm() {
                                                 newAlts[index] = e.target.value;
                                                 setFormData(prev => ({ ...prev, imageAlts: newAlts }));
                                             }}
-                                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-[#012d20]"
+                                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-[#000000]"
                                         />
                                         <p className="text-[10px] text-gray-400 mt-1 text-right">
                                             {(formData.imageAlts[index] || '').length} chars
@@ -1275,7 +1275,7 @@ function AddProductForm() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="px-6 py-2 bg-[#012d20] text-[#DCF9F1] rounded-lg font-medium hover:bg-[#012d20]/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-6 py-2 bg-[#000000] text-[#ffffff] rounded-lg font-medium hover:bg-[#000000]/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {loading ? 'Adding Product...' : 'Add Product'}
                     </button>
@@ -1452,7 +1452,7 @@ function HeroImagesSection() {
                             type="file"
                             accept="image/jpeg,image/jpg,image/png,image/webp"
                             onChange={handleFileSelect}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#000000]"
                         />
                         <p className="text-xs text-gray-500 mt-1">
                             Supported formats: JPEG, PNG, WebP (Max 5MB)
@@ -1475,7 +1475,7 @@ function HeroImagesSection() {
                     <button
                         onClick={handleUpload}
                         disabled={!selectedFile || uploading}
-                        className="px-6 py-2 bg-[#012d20] text-[#DCF9F1] rounded-lg font-medium hover:bg-[#012d20]/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="px-6 py-2 bg-[#000000] text-[#ffffff] rounded-lg font-medium hover:bg-[#000000]/90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         {uploading ? 'Uploading...' : 'Add Hero Image'}
                     </button>
@@ -1570,10 +1570,10 @@ function CartsSection() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
                 <button
                     onClick={() => setFilter('all')}
-                    className={`rounded-xl p-4 sm:p-5 text-left transition border-2 ${filter === 'all' ? 'border-[#012d20] bg-[#012d20] text-white' : 'border-transparent bg-white shadow-sm hover:shadow-md'
+                    className={`rounded-xl p-4 sm:p-5 text-left transition border-2 ${filter === 'all' ? 'border-[#000000] bg-[#000000] text-white' : 'border-transparent bg-white shadow-sm hover:shadow-md'
                         }`}
                 >
-                    <p className={`text-xs uppercase tracking-wider mb-1 font-medium ${filter === 'all' ? 'text-[#DCF9F1]' : 'text-gray-500'}`}>Total Carts</p>
+                    <p className={`text-xs uppercase tracking-wider mb-1 font-medium ${filter === 'all' ? 'text-[#ffffff]' : 'text-gray-500'}`}>Total Carts</p>
                     <p className={`text-3xl sm:text-4xl font-bold ${filter === 'all' ? 'text-white' : 'text-gray-900'}`}>{total}</p>
                 </button>
                 <button
@@ -1620,7 +1620,7 @@ function CartsSection() {
                                     {/* Value — always visible top-right */}
                                     <div className="text-right flex-shrink-0">
                                         {cartValue > 0 && (
-                                            <p className="text-base sm:text-lg font-bold text-[#012d20]">₹{cartValue}</p>
+                                            <p className="text-base sm:text-lg font-bold text-[#000000]">₹{cartValue}</p>
                                         )}
                                         {cart.cart_status === 'bought' && cart.order_total && (
                                             <p className="text-xs text-green-600 font-medium">Ordered ₹{cart.order_total}</p>
@@ -1666,8 +1666,8 @@ export default function AdminPage() {
     // Show loading while checking authentication
     if (status === 'loading') {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-[#012d20]">
-                <div className="text-[#DCF9F1] text-xl">Loading...</div>
+            <div className="min-h-screen flex items-center justify-center bg-[#000000]">
+                <div className="text-[#ffffff] text-xl">Loading...</div>
             </div>
         );
     }
@@ -1683,7 +1683,7 @@ export default function AdminPage() {
                         <p className="text-xl text-gray-600 mb-8">Page not found</p>
                         <Link
                             href="/"
-                            className="inline-block bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300"
+                            className="inline-block bg-[#000000] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#1a1a1a] transition duration-300"
                         >
                             Back to Home
                         </Link>
@@ -1712,7 +1712,7 @@ export default function AdminPage() {
                             <button
                                 onClick={() => setActiveTab('update')}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'update'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1724,7 +1724,7 @@ export default function AdminPage() {
                             <button
                                 onClick={() => setActiveTab('add')}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'add'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1736,7 +1736,7 @@ export default function AdminPage() {
                             <button
                                 onClick={() => setActiveTab('orders')}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'orders'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1748,7 +1748,7 @@ export default function AdminPage() {
                             <button
                                 onClick={() => setActiveTab('hero')}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'hero'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1760,7 +1760,7 @@ export default function AdminPage() {
                             <button
                                 onClick={() => setActiveTab('carts')}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'carts'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1805,7 +1805,7 @@ export default function AdminPage() {
                                     setMobileMenuOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'update'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1820,7 +1820,7 @@ export default function AdminPage() {
                                     setMobileMenuOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'add'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1835,7 +1835,7 @@ export default function AdminPage() {
                                     setMobileMenuOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'orders'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1850,7 +1850,7 @@ export default function AdminPage() {
                                     setMobileMenuOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'hero'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >
@@ -1865,7 +1865,7 @@ export default function AdminPage() {
                                     setMobileMenuOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'carts'
-                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    ? 'bg-[#000000] text-[#ffffff]'
                                     : 'text-gray-700 hover:bg-gray-100'
                                     }`}
                             >

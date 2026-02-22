@@ -54,7 +54,7 @@ export default function NewArrivals() {
   if (loading) {
     return (
       <section ref={ref} className="py-20 max-w-7xl mx-auto px-4">
-        <h2 className="text-center font-serif text-4xl mb-12 text-[#012d20]">Newest Arrivals</h2>
+        <h2 className="text-center font-serif text-4xl mb-12 text-[#000000]">Newest Arrivals</h2>
         <div className="text-center text-gray-500">Loading...</div>
       </section>
     );
@@ -62,7 +62,7 @@ export default function NewArrivals() {
 
   return (
     <section ref={ref} className={`py-20 max-w-7xl mx-auto px-4 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
-      <h2 className="text-center font-serif text-4xl mb-12 text-[#012d20]">Newest Arrivals</h2>
+      <h2 className="text-center font-serif text-4xl mb-12 text-[#000000]">Newest Arrivals</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product, index) => (
           <div key={product.id} className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`} style={{ transitionDelay: isVisible ? `${index * 75}ms` : '0ms' }}>
@@ -82,7 +82,7 @@ export default function NewArrivals() {
               {/* Quick Add Button */}
               <button
                 onClick={() => handleAddToCart(product)}
-                className="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow-lg transform translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#012d20] hover:text-white"
+                className="absolute bottom-4 right-4 bg-white p-3 rounded-full shadow-lg transform translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 hover:bg-[#000000] hover:text-white"
                 title="Add to Cart"
               >
                 <ShoppingBag className="w-5 h-5" />
@@ -98,7 +98,7 @@ export default function NewArrivals() {
             </div>
 
             {addingId === product.id && (
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#012d20]/90 text-white text-xs px-3 py-1 rounded-full pointer-events-none">
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#000000]/90 text-white text-xs px-3 py-1 rounded-full pointer-events-none">
                 Added!
               </div>
             )}

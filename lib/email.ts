@@ -62,7 +62,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
                     
                     <!-- Header -->
                     <tr>
-                        <td style="background-color: #012d20; padding: 40px 30px; text-align: center;">
+                        <td style="background-color: #000000; padding: 40px 30px; text-align: center;">
                             <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 300; letter-spacing: 2px;">DARIZA FABRICS</h1>
                         </td>
                     </tr>
@@ -70,7 +70,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
                     <!-- Order Confirmation Message -->
                     <tr>
                         <td style="padding: 40px 30px 20px;">
-                            <h2 style="margin: 0 0 10px; color: #012d20; font-size: 24px; font-weight: 400;">Thank You for Your Order!</h2>
+                            <h2 style="margin: 0 0 10px; color: #000000; font-size: 24px; font-weight: 400;">Thank You for Your Order!</h2>
                             <p style="margin: 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
                                 Dear ${data.customerName},
                             </p>
@@ -147,11 +147,11 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
                         <td style="padding: 0 30px 30px;">
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
-                                    <td style="padding: 15px 0; border-top: 2px solid #012d20;">
+                                    <td style="padding: 15px 0; border-top: 2px solid #000000;">
                                         <span style="color: #111827; font-size: 16px; font-weight: 600;">Total Amount:</span>
                                     </td>
-                                    <td style="padding: 15px 0; border-top: 2px solid #012d20; text-align: right;">
-                                        <span style="color: #012d20; font-size: 20px; font-weight: 700;">₹${data.totalAmount}</span>
+                                    <td style="padding: 15px 0; border-top: 2px solid #000000; text-align: right;">
+                                        <span style="color: #000000; font-size: 20px; font-weight: 700;">₹${data.totalAmount}</span>
                                     </td>
                                 </tr>
                             </table>
@@ -178,7 +178,7 @@ export async function sendOrderConfirmationEmail(data: OrderConfirmationData) {
                     <tr>
                         <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
                             <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
-                                Questions? Contact us at <a href="mailto:${process.env.SMTP_USER}" style="color: #012d20; text-decoration: none;">${process.env.SMTP_USER}</a>
+                                Questions? Contact us at <a href="mailto:${process.env.SMTP_USER}" style="color: #000000; text-decoration: none;">${process.env.SMTP_USER}</a>
                             </p>
                             <p style="margin: 10px 0 0; color: #9ca3af; font-size: 12px;">
                                 © ${new Date().getFullYear()} Dariza Fabrics. All rights reserved.
@@ -289,27 +289,27 @@ export async function sendVerificationEmail(email: string, token: string) {
             <td align="center">
                 <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <tr>
-                        <td style="background-color: #012d20; padding: 40px 30px; text-align: center;">
+                        <td style="background-color: #000000; padding: 40px 30px; text-align: center;">
                             <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 300; letter-spacing: 2px;">DARIZA FABRICS</h1>
                         </td>
                     </tr>
                     <tr>
                         <td style="padding: 40px 30px;">
-                            <h2 style="margin: 0 0 20px; color: #012d20; font-size: 24px; font-weight: 400;">Verify Your Email</h2>
+                            <h2 style="margin: 0 0 20px; color: #000000; font-size: 24px; font-weight: 400;">Verify Your Email</h2>
                             <p style="margin: 0 0 20px; color: #6b7280; font-size: 16px; line-height: 1.6;">
                                 Thank you for signing up with Dariza Fabrics! To complete your registration and start shopping, please click the button below to verify your email address.
                             </p>
                             <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                 <tr>
                                     <td align="center" style="padding: 20px 0;">
-                                        <a href="${verificationUrl}" style="background-color: #012d20; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 4px; font-weight: 600; display: inline-block;">Verify Email Address</a>
+                                        <a href="${verificationUrl}" style="background-color: #000000; color: #ffffff; padding: 16px 32px; text-decoration: none; border-radius: 4px; font-weight: 600; display: inline-block;">Verify Email Address</a>
                                     </td>
                                 </tr>
                             </table>
                             <p style="margin: 20px 0 0; color: #6b7280; font-size: 14px; line-height: 1.6;">
                                 If the button above doesn't work, you can also copy and paste the following link into your browser:
                             </p>
-                            <p style="margin: 10px 0 0; color: #012d20; font-size: 14px; word-break: break-all;">
+                            <p style="margin: 10px 0 0; color: #000000; font-size: 14px; word-break: break-all;">
                                 ${verificationUrl}
                             </p>
                             <p style="margin: 30px 0 0; color: #9ca3af; font-size: 14px; border-top: 1px solid #e5e7eb; padding-top: 20px;">

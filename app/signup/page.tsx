@@ -93,11 +93,11 @@ export default function SignupPage() {
 
             <div className="flex-grow">
                 {/* Header Section */}
-                <div className="bg-[#012d20] py-16 md:py-20 text-center px-4">
-                    <h1 className="font-lush text-4xl md:text-6xl mb-4 text-[#DCf9f1]">
+                <div className="bg-[#000000] py-16 md:py-20 text-center px-4">
+                    <h1 className="font-lush text-4xl md:text-6xl mb-4 text-[#ffffff]">
                         Create Account
                     </h1>
-                    <p className="font-script text-xl md:text-2xl text-[#DCf9f1]/80 max-w-2xl mx-auto">
+                    <p className="font-script text-xl md:text-2xl text-[#ffffff]/80 max-w-2xl mx-auto">
                         Join us today and start shopping
                     </p>
                 </div>
@@ -126,7 +126,7 @@ export default function SignupPage() {
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#012d20] focus:border-transparent transition-all duration-300 text-gray-900"
+                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900"
                                     placeholder="John Doe"
                                 />
                             </div>
@@ -145,7 +145,7 @@ export default function SignupPage() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#012d20] focus:border-transparent transition-all duration-300 text-gray-900"
+                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900"
                                     placeholder="you@example.com"
                                 />
                             </div>
@@ -165,7 +165,7 @@ export default function SignupPage() {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
-                                        className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#012d20] focus:border-transparent transition-all duration-300 text-gray-900 pr-12"
+                                        className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900 pr-12"
                                         placeholder="••••••••"
                                     />
                                     <button
@@ -196,7 +196,7 @@ export default function SignupPage() {
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
-                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#012d20] focus:border-transparent transition-all duration-300 text-gray-900"
+                                    className="w-full px-4 py-3 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-[#000000] focus:border-transparent transition-all duration-300 text-gray-900"
                                     placeholder="••••••••"
                                 />
                             </div>
@@ -205,7 +205,7 @@ export default function SignupPage() {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-[#012d20] text-white py-3 rounded-md font-medium uppercase tracking-wider hover:bg-[#012d20]/90 transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                className="w-full bg-[#000000] text-white py-3 rounded-md font-medium uppercase tracking-wider hover:bg-[#000000]/90 transition-all duration-300 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                             >
                                 {isLoading ? (
                                     <span className="flex items-center justify-center space-x-2">
@@ -267,7 +267,7 @@ export default function SignupPage() {
                             Already have an account?{' '}
                             <Link
                                 href="/login"
-                                className="text-[#012d20] hover:text-[#012d20]/80 font-medium transition-colors"
+                                className="text-[#000000] hover:text-[#000000]/80 font-medium transition-colors"
                             >
                                 Sign in
                             </Link>
@@ -278,11 +278,11 @@ export default function SignupPage() {
                     <div className="mt-8 text-center text-xs text-gray-500 space-y-2">
                         <p>
                             By creating an account, you agree to our{' '}
-                            <Link href="/terms" className="text-[#012d20] hover:underline">
+                            <Link href="/terms" className="text-[#000000] hover:underline">
                                 Terms of Service
                             </Link>{' '}
                             and{' '}
-                            <Link href="/privacy" className="text-[#012d20] hover:underline">
+                            <Link href="/privacy" className="text-[#000000] hover:underline">
                                 Privacy Policy
                             </Link>
                         </p>

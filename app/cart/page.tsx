@@ -18,7 +18,7 @@ export default function CartPage() {
                     <p className="text-gray-500 mb-8 text-center max-w-md">Looks like you haven't added anything to your cart yet. Browse our collections to find your perfect style.</p>
                     <Link
                         href="/"
-                        className="bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300"
+                        className="bg-[#000000] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#1a1a1a] transition duration-300"
                     >
                         Continue Shopping
                     </Link>
@@ -129,7 +129,7 @@ export default function CartPage() {
                         <div className="mt-6">
                             <Link
                                 href="/checkout"
-                                className="w-full flex justify-center items-center bg-[#012d20] border border-transparent px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-[#001a12] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-[#012d20] uppercase tracking-widest"
+                                className="w-full flex justify-center items-center bg-[#000000] border border-transparent px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-[#1a1a1a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-[#000000] uppercase tracking-widest"
                             >
                                 Checkout
                             </Link>
