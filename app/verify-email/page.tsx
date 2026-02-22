@@ -2,8 +2,9 @@ import { redirect } from 'next/navigation';
 import pool from '@/lib/db';
 import Link from 'next/link';
 
-export default async function VerifyEmailPage({ searchParams }: { searchParams: { token?: string } }) {
-    const token = await searchParams.token;
+export default async function VerifyEmailPage(props: { searchParams: Promise<{ token?: string }> }) {
+    const searchParams = await props.searchParams;
+    const token = searchParams.token;
     let success = false;
     let message = 'Verifying your email address...';
 
