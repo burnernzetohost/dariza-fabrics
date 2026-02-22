@@ -1,0 +1,46 @@
+[
+  {
+    "column_name": "created_at",
+    "data_type": "timestamp without time zone"
+  },
+  {
+    "column_name": "price",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "sale_price",
+    "data_type": "integer"
+  },
+  {
+    "column_name": "new_arrival",
+    "data_type": "boolean"
+  },
+  {
+    "column_name": "details",
+    "data_type": "ARRAY"
+  },
+  {
+    "column_name": "id",
+    "data_type": "text"
+  },
+  {
+    "column_name": "images",
+    "data_type": "ARRAY"
+  },
+  {
+    "column_name": "sizes",
+    "data_type": "ARRAY"
+  },
+  {
+    "column_name": "name",
+    "data_type": "text"
+  },
+  {
+    "column_name": "category",
+    "data_type": "text"
+  },
+  {
+    "column_name": "description",
+    "data_type": "text"
+  }
+]

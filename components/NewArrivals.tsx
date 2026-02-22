@@ -10,7 +10,7 @@ interface Product {
   name: string;
   price: number;
   sale_price: number | null;
-  images: string[];
+  images: any[];
   category: string;
 }
 
@@ -43,7 +43,7 @@ export default function NewArrivals() {
       name: product.name,
       price: product.price,
       salePrice: product.sale_price || undefined,
-      image: product.images[0],
+      image: typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url,
     });
 
     // Reset loading state after a brief delay
@@ -64,15 +64,15 @@ export default function NewArrivals() {
       <h2 className="text-center font-serif text-4xl mb-12 text-[#012d20]">Newest Arrivals</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {products.map((product, index) => (
-          <div key={product.id} className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`} style={{transitionDelay: isVisible ? `${index * 75}ms` : '0ms'}}>
+          <div key={product.id} className={`group relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-20 scale-95'}`} style={{ transitionDelay: isVisible ? `${index * 75}ms` : '0ms' }}>
             <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4 rounded-sm">
               <span className="absolute top-2 left-2 bg-red-600 text-white text-[10px] px-2 py-1 uppercase tracking-wider z-10">
                 {product.sale_price ? 'Sale' : 'New'}
               </span>
               <Link href={`/${product.category}/${product.id}`}>
                 <img
-                  src={product.images[0]}
-                  alt={product.name}
+                  src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url}
+                  alt={typeof product.images[0] === 'string' ? product.name : (product.images[0]?.alt || product.name)}
                   className="w-full h-full object-cover hover:opacity-90 transition duration-500 group-hover:scale-105"
                 />
               </Link>

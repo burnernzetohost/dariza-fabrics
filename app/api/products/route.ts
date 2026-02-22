@@ -36,9 +36,9 @@ export async function POST(request: Request) {
         }
 
         const body = await request.json();
-        
+
         // Validate required fields
-        const { id, name, category, description, price, sale_price, images, sizes, new_arrival, created_at } = body;
+        const { id, name, category, description, price, sale_price, images, sizes, new_arrival, created_at, meta_title, meta_description, slug } = body;
 
         if (!name || !category || !description || !price) {
             return NextResponse.json(
@@ -49,8 +49,8 @@ export async function POST(request: Request) {
 
         // Insert product into database
         const result = await pool.query(
-            `INSERT INTO products (id, name, category, description, price, sale_price, images, sizes, new_arrival, created_at)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            `INSERT INTO products (id, name, category, description, price, sale_price, images, sizes, new_arrival, meta_title, meta_description, slug, created_at)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
              RETURNING *`,
             [
                 id,
@@ -59,15 +59,18 @@ export async function POST(request: Request) {
                 description,
                 price,
                 sale_price || null,
-                images || [],
+                images ? JSON.stringify(images) : '[]',
                 sizes || [],
                 new_arrival || false,
+                meta_title || null,
+                meta_description || null,
+                slug || null,
                 created_at || new Date().toISOString()
             ]
         );
 
         return NextResponse.json(
-            { 
+            {
                 message: 'Product added successfully',
                 product: result.rows[0]
             },

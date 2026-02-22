@@ -12,7 +12,7 @@ interface Product {
     id: string;
     name: string;
     price: number;
-    images: string[];
+    images: any[];
     category: string;
 }
 
@@ -73,8 +73,8 @@ export default function ShopPage() {
                                 >
                                     <div className="relative aspect-[3/4] overflow-hidden bg-gray-100 mb-4">
                                         <img
-                                            src={product.images[0]}
-                                            alt={product.name}
+                                            src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url}
+                                            alt={typeof product.images[0] === 'string' ? product.name : (product.images[0]?.alt || product.name)}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-[#012d20] text-white text-xs uppercase tracking-widest px-6 py-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[90%] text-center">

@@ -1,6 +1,7 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { useSession } from 'next-auth/react';
 
 export interface CartItem {
     id: string; // unique combination of product id + options
@@ -30,6 +31,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const [items, setItems] = useState<CartItem[]>([]);
     const [isOpen, setIsOpen] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
+    const { data: session } = useSession();
 
     // Load from local storage on mount
     useEffect(() => {
@@ -50,6 +52,34 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             localStorage.setItem('cart', JSON.stringify(items));
         }
     }, [items, isMounted]);
+
+    // Sync cart to DB whenever items change and user is logged in
+    const syncCartToDB = useCallback(async (cartItems: CartItem[]) => {
+        if (!session?.user?.email) return;
+        try {
+            await fetch('/api/carts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_email: session.user.email,
+                    user_name: session.user.name || '',
+                    items: cartItems,
+                }),
+            });
+        } catch (e) {
+            // Silently fail — cart is still saved in localStorage
+            console.error('Failed to sync cart to DB:', e);
+        }
+    }, [session?.user?.email, session?.user?.name]);
+
+    // Sync to DB whenever items change (debounced via useEffect)
+    useEffect(() => {
+        if (!isMounted || !session?.user?.email) return;
+        const timer = setTimeout(() => {
+            syncCartToDB(items);
+        }, 800); // debounce 800ms
+        return () => clearTimeout(timer);
+    }, [items, isMounted, session?.user?.email, syncCartToDB]);
 
     const addToCart = (product: Omit<CartItem, 'id' | 'quantity'>) => {
         setItems((prevItems) => {

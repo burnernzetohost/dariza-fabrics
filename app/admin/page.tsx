@@ -6,9 +6,36 @@ import React from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { BarChart3, Plus, ShoppingBag, X, Menu, Image } from 'lucide-react';
+import { BarChart3, Plus, ShoppingBag, X, Menu, Image, ShoppingCart } from 'lucide-react';
 
-export const dynamic = 'force-dynamic';
+import dynamic from 'next/dynamic';
+
+const RichTextEditor = dynamic(() => import('@/components/RichTextEditor'), { ssr: false });
+
+export const dynamicPage = 'force-dynamic';
+
+function generateSlug(name: string) {
+    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+}
+
+// SEO Preview Component
+function GoogleSearchPreview({ title, description, slug }: { title: string, description: string, slug: string }) {
+    const domain = typeof window !== 'undefined' ? window.location.hostname : 'example.com';
+    return (
+        <div className="bg-white border rounded-lg p-4 shadow-sm w-full font-sans text-sm">
+            <div className="text-sm mb-1 truncate text-[#1a5e20] flex items-center gap-2">
+                <span className="bg-gray-200 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold text-gray-500 mr-1">D</span>
+                <span className="truncate">{domain} &gt; product &gt; {slug || 'your-product-slug'}</span>
+            </div>
+            <div className="text-[#1a0dab] text-xl truncate hover:underline cursor-pointer">
+                {title || 'Your Product Title Will Appear Here'}
+            </div>
+            <div className="text-[#4d5156] line-clamp-2 mt-1">
+                {description || 'Your products meta description will appear here. Write a compelling summary to increase your click-through rate.'}
+            </div>
+        </div>
+    );
+}
 
 // Orders Section Component
 function OrdersSection() {
@@ -120,7 +147,7 @@ function OrdersSection() {
                                         {/* Product Image */}
                                         {item.images && item.images.length > 0 && (
                                             <img
-                                                src={item.images[0]}
+                                                src={typeof item.images[0] === 'string' ? item.images[0] : item.images[0]?.url}
                                                 alt={item.product_name}
                                                 className="w-20 h-20 object-cover rounded"
                                             />
@@ -223,7 +250,7 @@ function OrdersSection() {
                                                 <div key={idx} className="relative">
                                                     {item.images && item.images.length > 0 && (
                                                         <img
-                                                            src={item.images[0]}
+                                                            src={typeof item.images[0] === 'string' ? item.images[0] : item.images[0]?.url}
                                                             alt={item.product_name}
                                                             className="w-12 h-12 object-cover rounded border"
                                                             title={item.product_name}
@@ -485,27 +512,125 @@ function UpdateProductsSection() {
                     {/* Description */}
                     <div className="mt-6">
                         <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea
-                            value={editData.description}
-                            onChange={(e) => handleEditChange('description', e.target.value)}
-                            rows={4}
-                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
-                        ></textarea>
+                        <RichTextEditor
+                            value={editData.description || ''}
+                            onChange={(val) => handleEditChange('description', val)}
+                        />
+                    </div>
+
+                    {/* SEO Settings */}
+                    <div className="mt-8 border-t border-gray-200 pt-6">
+                        <h3 className="text-xl font-bold text-gray-900 mb-4">SEO Settings</h3>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div className="space-y-6">
+                                {/* Meta Title */}
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <label className="block text-sm font-medium text-gray-700">Meta Title</label>
+                                        <span className={`text-xs ${(editData.meta_title?.length || 0) > 60 ? 'text-red-500' : 'text-gray-500'}`}>
+                                            {editData.meta_title?.length || 0}/60
+                                        </span>
+                                    </div>
+                                    <input
+                                        type="text"
+                                        value={editData.meta_title || ''}
+                                        onChange={(e) => handleEditChange('meta_title', e.target.value)}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                    />
+                                </div>
+
+                                {/* Meta Description */}
+                                <div>
+                                    <div className="flex justify-between mb-2">
+                                        <label className="block text-sm font-medium text-gray-700">Meta Description</label>
+                                        <span className={`text-xs ${(editData.meta_description?.length || 0) < 150 || (editData.meta_description?.length || 0) > 160 ? 'text-orange-500' : 'text-green-600'}`}>
+                                            {editData.meta_description?.length || 0} chars (recommend 150-160)
+                                        </span>
+                                    </div>
+                                    <textarea
+                                        value={editData.meta_description || ''}
+                                        onChange={(e) => handleEditChange('meta_description', e.target.value)}
+                                        rows={3}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                    ></textarea>
+                                </div>
+
+                                {/* Slug */}
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">URL Slug</label>
+                                    <div className="flex gap-2">
+                                        <input
+                                            type="text"
+                                            value={editData.slug || ''}
+                                            onChange={(e) => {
+                                                const val = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+                                                handleEditChange('slug', val);
+                                            }}
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                        />
+                                        <button
+                                            onClick={() => handleEditChange('slug', generateSlug(editData.name || ''))}
+                                            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg text-sm font-medium whitespace-nowrap hover:bg-gray-300"
+                                            type="button"
+                                        >
+                                            Auto-generate
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Live Preview */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Google Search Preview</label>
+                                <GoogleSearchPreview
+                                    title={editData.meta_title || editData.name}
+                                    description={editData.meta_description || (editData.description?.replace(/<[^>]+>/g, '') || '').substring(0, 160)}
+                                    slug={editData.slug || generateSlug(editData.name || '')}
+                                />
+                            </div>
+                        </div>
                     </div>
 
                     {/* Images Preview */}
                     {editData.images && editData.images.length > 0 && (
-                        <div className="mt-6">
-                            <label className="block text-sm font-medium text-gray-700 mb-4">Current Images</label>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                {(Array.isArray(editData.images) ? editData.images : []).map((img: string, idx: number) => (
-                                    <img
-                                        key={idx}
-                                        src={img}
-                                        alt={`Product ${idx}`}
-                                        className="w-full h-24 object-cover rounded-lg border border-gray-200"
-                                    />
-                                ))}
+                        <div className="mt-8 border-t border-gray-200 pt-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <label className="block text-sm font-medium text-gray-700">Current Images & Alt Text</label>
+                                <span className="text-xs text-gray-500">
+                                    {(editData.images || []).filter((img: any) => typeof img === 'object' ? !!img.alt : false).length}/{editData.images?.length || 0} images have alt text
+                                </span>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {(Array.isArray(editData.images) ? editData.images : []).map((img: any, idx: number) => {
+                                    const url = typeof img === 'string' ? img : img.url;
+                                    const alt = typeof img === 'string' ? '' : (img.alt || '');
+                                    return (
+                                        <div key={idx} className="border border-gray-200 rounded-lg p-3 bg-gray-50">
+                                            <img
+                                                src={url}
+                                                alt={`Product ${idx}`}
+                                                className="w-full h-40 object-cover rounded border border-gray-200 mb-3"
+                                            />
+                                            <input
+                                                type="text"
+                                                placeholder="Alt text (describe image)"
+                                                value={alt}
+                                                onChange={(e) => {
+                                                    const newImages = [...editData.images];
+                                                    // Make sure we convert string to object if necessary
+                                                    const currentUrl = typeof newImages[idx] === 'string' ? newImages[idx] : newImages[idx].url;
+                                                    newImages[idx] = { url: currentUrl, alt: e.target.value };
+                                                    handleEditChange('images', newImages);
+                                                }}
+                                                className="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-[#012d20]"
+                                            />
+                                            <p className="text-[10px] text-gray-400 mt-1 text-right">
+                                                {alt.length} chars
+                                            </p>
+                                        </div>
+                                    );
+                                })}
                             </div>
                         </div>
                     )}
@@ -589,8 +714,8 @@ function UpdateProductsSection() {
                             <div className="w-full h-40 bg-gray-200 overflow-hidden">
                                 {product.images && product.images.length > 0 ? (
                                     <img
-                                        src={product.images[0]}
-                                        alt={product.name}
+                                        src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url}
+                                        alt={typeof product.images[0] === 'string' ? product.name : (product.images[0]?.alt || product.name)}
                                         className="w-full h-full object-cover"
                                     />
                                 ) : (
@@ -645,7 +770,11 @@ function AddProductForm() {
         salePrice: '',
         sizes: '',
         newArrival: false,
-        images: [] as File[]
+        images: [] as File[],
+        metaTitle: '',
+        metaDescription: '',
+        slug: '',
+        imageAlts: [] as string[]
     });
     const [categories, setCategories] = useState<string[]>([]);
     const [showCustomCategory, setShowCustomCategory] = useState(false);
@@ -672,16 +801,22 @@ function AddProductForm() {
 
     const getISTTimestamp = () => {
         const now = new Date();
-        const istTime = new Date(now.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+        const options: Intl.DateTimeFormatOptions = {
+            timeZone: 'Asia/Kolkata',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
 
-        const day = String(istTime.getDate()).padStart(2, '0');
-        const month = String(istTime.getMonth() + 1).padStart(2, '0');
-        const year = istTime.getFullYear();
-        const hours = String(istTime.getHours()).padStart(2, '0');
-        const minutes = String(istTime.getMinutes()).padStart(2, '0');
-        const seconds = String(istTime.getSeconds()).padStart(2, '0');
+        // Get parts to construct YYYY-MM-DD HH:mm:ss format which Postgres accepts
+        const parts = new Intl.DateTimeFormat('en-GB', options).formatToParts(now);
+        const getPart = (name: string) => parts.find(p => p.type === name)?.value;
 
-        return `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+        return `${getPart('year')}-${getPart('month')}-${getPart('day')} ${getPart('hour')}:${getPart('minute')}:${getPart('second')}`;
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -703,7 +838,8 @@ function AddProductForm() {
         if (e.target.files) {
             setFormData(prev => ({
                 ...prev,
-                images: Array.from(e.target.files as FileList)
+                images: Array.from(e.target.files as FileList),
+                imageAlts: Array.from(e.target.files as FileList).map(() => '')
             }));
         }
     };
@@ -711,7 +847,8 @@ function AddProductForm() {
     const removeImage = (index: number) => {
         setFormData(prev => ({
             ...prev,
-            images: prev.images.filter((_, i) => i !== index)
+            images: prev.images.filter((_, i) => i !== index),
+            imageAlts: prev.imageAlts.filter((_, i) => i !== index)
         }));
     };
 
@@ -784,9 +921,12 @@ function AddProductForm() {
                 description: formData.description,
                 price: parseInt(formData.price),
                 sale_price: formData.salePrice ? parseInt(formData.salePrice) : null,
-                images: imagePaths,
+                images: imagePaths.map((url, idx) => ({ url, alt: formData.imageAlts[idx] || '' })),
                 sizes: formData.sizes ? formData.sizes.split(',').map(s => s.trim()).filter(s => s) : [],
                 new_arrival: formData.newArrival,
+                meta_title: formData.metaTitle,
+                meta_description: formData.metaDescription,
+                slug: formData.slug || generateSlug(formData.name),
                 created_at: timestamp
             };
 
@@ -814,7 +954,11 @@ function AddProductForm() {
                 salePrice: '',
                 sizes: '',
                 newArrival: false,
-                images: []
+                images: [],
+                metaTitle: '',
+                metaDescription: '',
+                slug: '',
+                imageAlts: []
             });
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');
@@ -971,15 +1115,87 @@ function AddProductForm() {
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                         Description *
                     </label>
-                    <textarea
-                        name="description"
+                    <RichTextEditor
                         value={formData.description}
-                        onChange={handleInputChange}
-                        rows={4}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20] focus:border-transparent"
-                        placeholder="Enter product description"
-                        required
-                    ></textarea>
+                        onChange={(val) => setFormData(prev => ({ ...prev, description: val }))}
+                    />
+                </div>
+
+                {/* SEO Settings */}
+                <div className="mt-8 border-t border-gray-200 pt-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-4">SEO Settings</h3>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div className="space-y-6">
+                            {/* Meta Title */}
+                            <div>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm font-medium text-gray-700">Meta Title</label>
+                                    <span className={`text-xs ${(formData.metaTitle?.length || 0) > 60 ? 'text-red-500' : 'text-gray-500'}`}>
+                                        {formData.metaTitle?.length || 0}/60
+                                    </span>
+                                </div>
+                                <input
+                                    type="text"
+                                    name="metaTitle"
+                                    value={formData.metaTitle}
+                                    onChange={handleInputChange}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                />
+                            </div>
+
+                            {/* Meta Description */}
+                            <div>
+                                <div className="flex justify-between mb-2">
+                                    <label className="block text-sm font-medium text-gray-700">Meta Description</label>
+                                    <span className={`text-xs ${(formData.metaDescription?.length || 0) < 150 || (formData.metaDescription?.length || 0) > 160 ? 'text-orange-500' : 'text-green-600'}`}>
+                                        {formData.metaDescription?.length || 0} chars (recommend 150-160)
+                                    </span>
+                                </div>
+                                <textarea
+                                    name="metaDescription"
+                                    value={formData.metaDescription}
+                                    onChange={handleInputChange}
+                                    rows={3}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                ></textarea>
+                            </div>
+
+                            {/* Slug */}
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">URL Slug</label>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        name="slug"
+                                        value={formData.slug}
+                                        onChange={(e) => {
+                                            const val = e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '');
+                                            setFormData(prev => ({ ...prev, slug: val }));
+                                        }}
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#012d20]"
+                                    />
+                                    <button
+                                        onClick={() => setFormData(prev => ({ ...prev, slug: generateSlug(formData.name) }))}
+                                        className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg text-sm font-medium whitespace-nowrap hover:bg-gray-300"
+                                        type="button"
+                                    >
+                                        Auto-generate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Live Preview */}
+                        <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">Google Search Preview</label>
+                            <GoogleSearchPreview
+                                title={formData.metaTitle || formData.name}
+                                description={formData.metaDescription || (formData.description?.replace(/<[^>]+>/g, '') || '').substring(0, 160)}
+                                slug={formData.slug || generateSlug(formData.name)}
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 {/* Images */}
@@ -1002,22 +1218,41 @@ function AddProductForm() {
                         </label>
                     </div>
 
-                    {/* Image Preview */}
+                    {/* Image Preview & Alt Text */}
                     {formData.images.length > 0 && (
-                        <div className="mt-4">
-                            <p className="text-sm font-medium text-gray-700 mb-2">Selected Images:</p>
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div className="mt-6 border-t border-gray-200 pt-6">
+                            <div className="flex justify-between items-center mb-4">
+                                <label className="block text-sm font-medium text-gray-700">Selected Images & Alt Text</label>
+                                <span className="text-xs text-gray-500">
+                                    {formData.imageAlts.filter(alt => alt.length > 0).length}/{formData.images.length} images have alt text
+                                </span>
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {formData.images.map((file, index) => (
-                                    <div key={index} className="relative group">
+                                    <div key={index} className="relative group border border-gray-200 rounded-lg p-3 bg-gray-50">
                                         <img
                                             src={URL.createObjectURL(file)}
                                             alt={`Preview ${index + 1}`}
-                                            className="w-full h-24 object-cover rounded-lg"
+                                            className="w-full h-40 object-cover rounded border border-gray-200 mb-3"
                                         />
+                                        <input
+                                            type="text"
+                                            placeholder="Alt text (describe image)"
+                                            value={formData.imageAlts[index] || ''}
+                                            onChange={(e) => {
+                                                const newAlts = [...formData.imageAlts];
+                                                newAlts[index] = e.target.value;
+                                                setFormData(prev => ({ ...prev, imageAlts: newAlts }));
+                                            }}
+                                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-[#012d20]"
+                                        />
+                                        <p className="text-[10px] text-gray-400 mt-1 text-right">
+                                            {(formData.imageAlts[index] || '').length} chars
+                                        </p>
                                         <button
                                             type="button"
                                             onClick={() => removeImage(index)}
-                                            className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition"
+                                            className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition shadow-sm z-10"
                                         >
                                             <X size={16} />
                                         </button>
@@ -1287,6 +1522,142 @@ function HeroImagesSection() {
     );
 }
 
+// Carts Section Component
+function CartsSection() {
+    const [carts, setCarts] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState<'all' | 'abandoned' | 'bought'>('all');
+
+    React.useEffect(() => {
+        fetchCarts();
+    }, []);
+
+    const fetchCarts = async () => {
+        try {
+            setLoading(true);
+            const res = await fetch('/api/carts');
+            if (res.ok) {
+                const data = await res.json();
+                setCarts(data);
+            }
+        } catch (err) {
+            console.error('Error fetching carts:', err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const total = carts.length;
+    const abandoned = carts.filter(c => c.cart_status === 'abandoned').length;
+    const bought = carts.filter(c => c.cart_status === 'bought').length;
+
+    const filtered = filter === 'all' ? carts : carts.filter(c => c.cart_status === filter);
+
+    const statusBadge = (status: string) => {
+        if (status === 'bought') return 'bg-green-100 text-green-800 border border-green-300';
+        if (status === 'abandoned') return 'bg-orange-100 text-orange-800 border border-orange-300';
+        return 'bg-gray-100 text-gray-600 border border-gray-300';
+    };
+
+    if (loading) return <div className="text-center py-8">Loading carts...</div>;
+
+    return (
+        <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Carts</h1>
+            <p className="text-gray-600 mb-8">Track customer cart activity</p>
+
+            {/* Stats */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
+                <button
+                    onClick={() => setFilter('all')}
+                    className={`rounded-xl p-4 sm:p-5 text-left transition border-2 ${filter === 'all' ? 'border-[#012d20] bg-[#012d20] text-white' : 'border-transparent bg-white shadow-sm hover:shadow-md'
+                        }`}
+                >
+                    <p className={`text-xs uppercase tracking-wider mb-1 font-medium ${filter === 'all' ? 'text-[#DCF9F1]' : 'text-gray-500'}`}>Total Carts</p>
+                    <p className={`text-3xl sm:text-4xl font-bold ${filter === 'all' ? 'text-white' : 'text-gray-900'}`}>{total}</p>
+                </button>
+                <button
+                    onClick={() => setFilter('abandoned')}
+                    className={`rounded-xl p-4 sm:p-5 text-left transition border-2 ${filter === 'abandoned' ? 'border-orange-500 bg-orange-500 text-white' : 'border-transparent bg-white shadow-sm hover:shadow-md'
+                        }`}
+                >
+                    <p className={`text-xs uppercase tracking-wider mb-1 font-medium ${filter === 'abandoned' ? 'text-orange-100' : 'text-gray-500'}`}>Abandoned</p>
+                    <p className={`text-3xl sm:text-4xl font-bold ${filter === 'abandoned' ? 'text-white' : 'text-orange-600'}`}>{abandoned}</p>
+                </button>
+                <button
+                    onClick={() => setFilter('bought')}
+                    className={`rounded-xl p-4 sm:p-5 text-left transition border-2 ${filter === 'bought' ? 'border-green-600 bg-green-600 text-white' : 'border-transparent bg-white shadow-sm hover:shadow-md'
+                        }`}
+                >
+                    <p className={`text-xs uppercase tracking-wider mb-1 font-medium ${filter === 'bought' ? 'text-green-100' : 'text-gray-500'}`}>Converted</p>
+                    <p className={`text-3xl sm:text-4xl font-bold ${filter === 'bought' ? 'text-white' : 'text-green-600'}`}>{bought}</p>
+                </button>
+            </div>
+
+            {/* Cart List */}
+            {filtered.length === 0 ? (
+                <div className="bg-white rounded-lg p-8 text-center text-gray-500 shadow-sm">
+                    No carts found
+                </div>
+            ) : (
+                <div className="space-y-3">
+                    {filtered.map(cart => {
+                        const items = Array.isArray(cart.items) ? cart.items : [];
+                        const cartValue = items.reduce((sum: number, item: any) => sum + ((item.salePrice || item.price) * item.quantity), 0);
+                        return (
+                            <div key={cart.id} className="bg-white rounded-lg p-4 shadow-sm">
+                                {/* Top row: name + badge + value */}
+                                <div className="flex items-start justify-between gap-2 mb-2">
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                                            <p className="font-semibold text-gray-900 truncate text-sm sm:text-base">{cart.user_name || cart.user_email}</p>
+                                            <span className={`px-2 py-0.5 rounded text-xs font-medium capitalize flex-shrink-0 ${statusBadge(cart.cart_status)}`}>
+                                                {cart.cart_status}
+                                            </span>
+                                        </div>
+                                        <p className="text-xs sm:text-sm text-gray-500 truncate">{cart.user_email}</p>
+                                    </div>
+                                    {/* Value — always visible top-right */}
+                                    <div className="text-right flex-shrink-0">
+                                        {cartValue > 0 && (
+                                            <p className="text-base sm:text-lg font-bold text-[#012d20]">₹{cartValue}</p>
+                                        )}
+                                        {cart.cart_status === 'bought' && cart.order_total && (
+                                            <p className="text-xs text-green-600 font-medium">Ordered ₹{cart.order_total}</p>
+                                        )}
+                                        <p className="text-xs text-gray-400 mt-0.5">
+                                            {new Date(cart.updated_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}
+                                        </p>
+                                    </div>
+                                </div>
+                                {/* Items row */}
+                                {items.length > 0 ? (
+                                    <div className="flex gap-1.5 flex-wrap mt-2">
+                                        {items.slice(0, 3).map((item: any, idx: number) => (
+                                            <div key={idx} className="flex items-center gap-1 bg-gray-50 border border-gray-100 rounded px-2 py-1 max-w-[160px]">
+                                                {item.image && (
+                                                    <img src={item.image} alt={item.name} className="w-5 h-5 object-cover rounded flex-shrink-0" />
+                                                )}
+                                                <span className="text-xs text-gray-700 truncate">{item.name}</span>
+                                                <span className="text-xs text-gray-400 flex-shrink-0">×{item.quantity}</span>
+                                            </div>
+                                        ))}
+                                        {items.length > 3 && (
+                                            <span className="text-xs text-gray-400 self-center">+{items.length - 3} more</span>
+                                        )}
+                                    </div>
+                                ) : (
+                                    <p className="text-xs text-gray-400 italic mt-2">Empty cart</p>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+        </div>
+    );
+}
+
 export default function AdminPage() {
     const { data: session, status } = useSession();
     const [activeTab, setActiveTab] = useState('update');
@@ -1384,6 +1755,18 @@ export default function AdminPage() {
                                 <Image size={18} />
                                 <span className="text-sm font-medium">Hero Images</span>
                             </button>
+
+                            {/* Carts */}
+                            <button
+                                onClick={() => setActiveTab('carts')}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'carts'
+                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    : 'text-gray-700 hover:bg-gray-100'
+                                    }`}
+                            >
+                                <ShoppingCart size={18} />
+                                <span className="text-sm font-medium">Carts</span>
+                            </button>
                         </nav>
                     </div>
                 </div>
@@ -1474,6 +1857,21 @@ export default function AdminPage() {
                                 <Image size={18} />
                                 <span className="text-sm font-medium">Hero Images</span>
                             </button>
+
+                            {/* Carts */}
+                            <button
+                                onClick={() => {
+                                    setActiveTab('carts');
+                                    setMobileMenuOpen(false);
+                                }}
+                                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${activeTab === 'carts'
+                                    ? 'bg-[#012d20] text-[#DCF9F1]'
+                                    : 'text-gray-700 hover:bg-gray-100'
+                                    }`}
+                            >
+                                <ShoppingCart size={18} />
+                                <span className="text-sm font-medium">Carts</span>
+                            </button>
                         </nav>
                     </div>
                 </div>
@@ -1495,6 +1893,10 @@ export default function AdminPage() {
 
                         {activeTab === 'hero' && (
                             <HeroImagesSection />
+                        )}
+
+                        {activeTab === 'carts' && (
+                            <CartsSection />
                         )}
                     </div>
                 </div>

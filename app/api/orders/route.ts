@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { Pool } from 'pg';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { sendOrderConfirmationEmail } from '@/lib/email';
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -82,10 +83,45 @@ export async function POST(request: Request) {
             );
         }
 
+        const order = result.rows[0];
+
+        // Send order confirmation email if payment is successful
+        if (payment_status === 'Paid' && payment_id) {
+            try {
+                const emailResult = await sendOrderConfirmationEmail({
+                    orderId: order.id,
+                    customerName: customer_name,
+                    customerEmail: customer_email,
+                    customerPhone: customer_phone,
+                    shippingAddress: shipping_address,
+                    items: items,
+                    totalAmount: total_amount,
+                    paymentId: payment_id,
+                    orderDate: new Date(order.created_at).toLocaleDateString('en-IN', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
+                });
+
+                if (emailResult.success) {
+                    console.log('Order confirmation email sent successfully');
+                } else {
+                    console.error('Failed to send order confirmation email:', emailResult.error);
+                    // Don't fail the order creation if email fails
+                }
+            } catch (emailError) {
+                console.error('Error sending order confirmation email:', emailError);
+                // Don't fail the order creation if email fails
+            }
+        }
+
         return NextResponse.json(
             {
                 message: 'Order created successfully',
-                order: result.rows[0]
+                order: order
             },
             { status: 201 }
         );
@@ -97,3 +133,4 @@ export async function POST(request: Request) {
         );
     }
 }
+

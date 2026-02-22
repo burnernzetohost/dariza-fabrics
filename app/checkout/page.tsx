@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useCart } from '@/context/CartContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Loader2, Truck, AlertCircle } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useSession } from 'next-auth/react';
@@ -12,17 +12,51 @@ import { useSession } from 'next-auth/react';
 export default function CheckoutPage() {
     const { items, subtotal, clearCart } = useCart();
     const router = useRouter();
-    const { data: session } = useSession();
+    const { data: session, status: sessionStatus } = useSession();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [shippingCost, setShippingCost] = useState<number | null>(null);
+    const [shippingInfo, setShippingInfo] = useState<{ courier_name: string; etd: string; estimated_delivery_days: string } | null>(null);
+    const [shippingLoading, setShippingLoading] = useState(false);
+    const [shippingError, setShippingError] = useState('');
+    const pincodeDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [formData, setFormData] = useState({
         customer_name: '',
         customer_email: '',
         customer_phone: '',
         customer_address: '',
         shipping_address: '',
+        shipping_pincode: '',
         special_notes: ''
     });
+
+    const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+
+    const fetchShippingRates = async (pincode: string) => {
+        if (!/^\d{6}$/.test(pincode)) return;
+        setShippingLoading(true);
+        setShippingError('');
+        setShippingCost(null);
+        setShippingInfo(null);
+        try {
+            const res = await fetch('/api/shipping-rates', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ delivery_pincode: pincode, quantity: totalItems }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                setShippingError(data.error || 'Could not fetch shipping rates.');
+            } else {
+                setShippingCost(data.rate);
+                setShippingInfo({ courier_name: data.courier_name, etd: data.etd, estimated_delivery_days: data.estimated_delivery_days });
+            }
+        } catch {
+            setShippingError('Failed to calculate shipping. Please try again.');
+        } finally {
+            setShippingLoading(false);
+        }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -30,6 +64,17 @@ export default function CheckoutPage() {
             ...prev,
             [name]: value
         }));
+
+        if (name === 'shipping_pincode') {
+            // Reset shipping when pincode changes
+            setShippingCost(null);
+            setShippingInfo(null);
+            setShippingError('');
+            if (pincodeDebounceRef.current) clearTimeout(pincodeDebounceRef.current);
+            if (/^\d{6}$/.test(value)) {
+                pincodeDebounceRef.current = setTimeout(() => fetchShippingRates(value), 400);
+            }
+        }
     };
 
     const handleSubmitOrder = async (e: React.FormEvent) => {
@@ -58,11 +103,13 @@ export default function CheckoutPage() {
             }));
 
             // Step 1: Create Razorpay order
+            const finalShipping = shippingCost ?? 0;
+            const totalWithShipping = subtotal + finalShipping;
             const razorpayOrderResponse = await fetch('/api/razorpay', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    amount: subtotal,
+                    amount: totalWithShipping,
                     currency: 'INR',
                     receipt: `receipt_${Date.now()}`,
                     notes: {
@@ -125,9 +172,9 @@ export default function CheckoutPage() {
                                     customer_email: formData.customer_email,
                                     customer_phone: formData.customer_phone,
                                     customer_address: formData.customer_address,
-                                    shipping_address: formData.shipping_address,
+                                    shipping_address: `${formData.shipping_address}, PIN: ${formData.shipping_pincode}`,
                                     items: orderItems,
-                                    total_amount: subtotal,
+                                    total_amount: totalWithShipping,
                                     special_notes: formData.special_notes || null,
                                     payment_id: response.razorpay_payment_id,
                                     razorpay_order_id: response.razorpay_order_id,
@@ -183,6 +230,54 @@ export default function CheckoutPage() {
         }
     };
 
+    // Show loading while session is being fetched
+    if (sessionStatus === 'loading') {
+        return (
+            <main className="min-h-screen flex flex-col bg-white">
+                <Navbar />
+                <div className="flex-grow flex items-center justify-center">
+                    <Loader2 className="w-8 h-8 animate-spin text-[#012d20]" />
+                </div>
+                <Footer />
+            </main>
+        );
+    }
+
+    // Require login before checkout
+    if (!session) {
+        return (
+            <main className="min-h-screen flex flex-col bg-white">
+                <Navbar />
+                <div className="flex-grow flex flex-col items-center justify-center p-4">
+                    <div className="max-w-md w-full text-center">
+                        <div className="w-16 h-16 bg-[#012d20]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg className="w-8 h-8 text-[#012d20]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                        <h1 className="text-3xl font-serif text-gray-900 mb-3">Sign in to Continue</h1>
+                        <p className="text-gray-500 mb-8">
+                            Please sign in to your account to proceed with checkout. Your cart will be saved to your account.
+                        </p>
+                        <Link
+                            href={`/login?callbackUrl=/checkout`}
+                            className="block w-full bg-[#012d20] text-white px-8 py-3 uppercase tracking-widest text-xs hover:bg-[#001a12] transition duration-300 text-center mb-4"
+                        >
+                            Sign In
+                        </Link>
+                        <Link
+                            href={`/signup?callbackUrl=/checkout`}
+                            className="block w-full border border-[#012d20] text-[#012d20] px-8 py-3 uppercase tracking-widest text-xs hover:bg-gray-50 transition duration-300 text-center"
+                        >
+                            Create Account
+                        </Link>
+                    </div>
+                </div>
+                <Footer />
+            </main>
+        );
+    }
+
     if (items.length === 0) {
         return (
             <main className="min-h-screen flex flex-col bg-white">
@@ -202,8 +297,8 @@ export default function CheckoutPage() {
         );
     }
 
-    const shippingCost = 0; // Free shipping for now
-    const total = subtotal + shippingCost;
+    const finalShipping = shippingCost ?? 0;
+    const total = subtotal + finalShipping;
 
     return (
         <main className="min-h-screen flex flex-col bg-white">
@@ -304,19 +399,58 @@ export default function CheckoutPage() {
                                 <h2 className="text-lg font-serif text-gray-900 mb-6 pb-4 border-b border-gray-200">
                                     Shipping Address
                                 </h2>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                                        Address *
-                                    </label>
-                                    <textarea
-                                        name="shipping_address"
-                                        value={formData.shipping_address}
-                                        onChange={handleInputChange}
-                                        rows={3}
-                                        placeholder="Street address, city, state, postal code"
-                                        className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
-                                        required
-                                    ></textarea>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Address *
+                                        </label>
+                                        <textarea
+                                            name="shipping_address"
+                                            value={formData.shipping_address}
+                                            onChange={handleInputChange}
+                                            rows={3}
+                                            placeholder="Street address, city, state"
+                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                            required
+                                        ></textarea>
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Delivery Pincode *
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="shipping_pincode"
+                                            value={formData.shipping_pincode}
+                                            onChange={handleInputChange}
+                                            maxLength={6}
+                                            placeholder="Enter 6-digit pincode"
+                                            className="w-full px-4 py-3 border border-gray-300 focus:border-[#012d20] focus:outline-none transition"
+                                            required
+                                        />
+                                        {/* Shipping rate feedback */}
+                                        {shippingLoading && (
+                                            <div className="mt-3 flex items-center gap-2 text-sm text-gray-500">
+                                                <Loader2 className="w-4 h-4 animate-spin" />
+                                                <span>Calculating shipping charges...</span>
+                                            </div>
+                                        )}
+                                        {shippingError && (
+                                            <div className="mt-3 flex items-start gap-2 text-sm text-red-600">
+                                                <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+                                                <span>{shippingError}</span>
+                                            </div>
+                                        )}
+                                        {shippingInfo && shippingCost !== null && (
+                                            <div className="mt-3 p-3 bg-green-50 border border-green-200 rounded flex items-start gap-2">
+                                                <Truck className="w-4 h-4 text-green-700 mt-0.5 flex-shrink-0" />
+                                                <div className="text-sm">
+                                                    <p className="font-medium text-green-800">{shippingInfo.courier_name}</p>
+                                                    <p className="text-green-700">₹{shippingCost} &bull; Est. delivery: {shippingInfo.etd} ({shippingInfo.estimated_delivery_days} days)</p>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
 
@@ -377,7 +511,15 @@ export default function CheckoutPage() {
                                 </div>
                                 <div className="flex justify-between text-sm text-gray-700">
                                     <span>Shipping</span>
-                                    <span className="text-green-600 font-medium">Free</span>
+                                    {shippingLoading ? (
+                                        <span className="flex items-center gap-1 text-gray-400">
+                                            <Loader2 className="w-3 h-3 animate-spin" /> Calculating...
+                                        </span>
+                                    ) : shippingCost !== null ? (
+                                        <span className="font-medium">₹{shippingCost}</span>
+                                    ) : (
+                                        <span className="text-gray-400 text-xs">Enter pincode to calculate</span>
+                                    )}
                                 </div>
                                 <div className="flex justify-between text-sm text-gray-700">
                                     <span>Tax</span>
@@ -389,7 +531,9 @@ export default function CheckoutPage() {
                             <div className="border-t border-gray-300 pt-4">
                                 <div className="flex justify-between items-center">
                                     <span className="text-lg font-serif text-gray-900">Total</span>
-                                    <span className="text-2xl font-bold text-[#012d20]">₹{total}</span>
+                                    <span className="text-2xl font-bold text-[#012d20]">
+                                        {shippingCost !== null ? `₹${total}` : `₹${subtotal}+`}
+                                    </span>
                                 </div>
                             </div>
 

@@ -9,7 +9,7 @@ interface SearchResult {
   name: string;
   price: number;
   sale_price: number | null;
-  images: string[];
+  images: any[];
   category: string;
 }
 
@@ -143,8 +143,8 @@ export default function SearchModal() {
                 >
                   <div className="relative w-12 h-16 flex-shrink-0 overflow-hidden bg-gray-100 rounded">
                     <img
-                      src={product.images[0]}
-                      alt={product.name}
+                      src={typeof product.images[0] === 'string' ? product.images[0] : product.images[0]?.url}
+                      alt={typeof product.images[0] === 'string' ? product.name : (product.images[0]?.alt || product.name)}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                     />
                     {product.sale_price && (

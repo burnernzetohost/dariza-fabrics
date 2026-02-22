@@ -35,12 +35,13 @@ const swirl = localFont({
 export const metadata: Metadata = {
   title: "DARIZA FABRICS",
   description: "Fresh New Arrivals",
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({

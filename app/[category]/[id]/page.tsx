@@ -26,8 +26,8 @@ export default async function ProductPage(props: { params: Promise<{ category: s
     // 1. FETCH FROM DATABASE
     const { rows } = await pool.query(
         `SELECT * FROM products 
-     WHERE LOWER(id) = LOWER($1) 
-     AND LOWER(category) = LOWER($2)`,
+         WHERE (LOWER(id) = LOWER($1) OR LOWER(slug) = LOWER($1))
+         AND LOWER(category) = LOWER($2)`,
         [id, category]
     );
 

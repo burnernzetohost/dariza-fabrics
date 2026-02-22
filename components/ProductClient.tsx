@@ -14,7 +14,7 @@ interface ProductProps {
         name: string;
         price: number;
         description: string;
-        images: string[];
+        images: any[];
         sizes: string[];
         details?: string[];
     }
@@ -34,7 +34,9 @@ export default function ProductClient({ product }: ProductProps) {
     const sizes = product.sizes || [];
     const details = product.details || ["Premium Quality Material", "Handcrafted Excellence", "Authentic Dariza Design"];
 
-    const mainImage = images.length > 0 ? images[activeImage] : '/placeholder.jpg';
+    const mainImageObj = images.length > 0 ? images[activeImage] : null;
+    const mainImage = mainImageObj ? (typeof mainImageObj === 'string' ? mainImageObj : mainImageObj.url) : '/placeholder.jpg';
+    const mainAlt = mainImageObj ? (typeof mainImageObj === 'string' ? product.name : (mainImageObj.alt || product.name)) : product.name;
 
     const handleAddToCart = () => {
         if (!selectedSize && sizes.length > 0) {
@@ -59,15 +61,19 @@ export default function ProductClient({ product }: ProductProps) {
                     <div className="flex flex-col-reverse lg:flex-row gap-4">
                         {images.length > 1 && (
                             <div className="flex lg:flex-col gap-4 overflow-x-auto lg:w-24">
-                                {images.map((img, idx) => (
-                                    <button key={idx} onClick={() => setActiveImage(idx)} className={`relative aspect-[3/4] w-20 lg:w-full flex-shrink-0 border-2 ${activeImage === idx ? 'border-black' : 'border-transparent'}`}>
-                                        <img src={img} alt={`View ${idx}`} className="w-full h-full object-cover" />
-                                    </button>
-                                ))}
+                                {images.map((imgObj, idx) => {
+                                    const img = typeof imgObj === 'string' ? imgObj : imgObj.url;
+                                    const alt = typeof imgObj === 'string' ? `View ${idx}` : (imgObj.alt || `View ${idx}`);
+                                    return (
+                                        <button key={idx} onClick={() => setActiveImage(idx)} className={`relative aspect-[3/4] w-20 lg:w-full flex-shrink-0 border-2 ${activeImage === idx ? 'border-black' : 'border-transparent'}`}>
+                                            <img src={img} alt={alt} className="w-full h-full object-cover" />
+                                        </button>
+                                    );
+                                })}
                             </div>
                         )}
                         <div className="flex-1 aspect-[3/4] bg-gray-100 relative overflow-hidden">
-                            <img src={mainImage} alt={product.name} className="w-full h-full object-cover" />
+                            <img src={mainImage} alt={mainAlt} className="w-full h-full object-cover" />
                         </div>
                     </div>
 

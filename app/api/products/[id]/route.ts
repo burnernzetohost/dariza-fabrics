@@ -16,7 +16,7 @@ export async function PATCH(
         // Check admin authentication
         const session = await getServerSession(authOptions);
         console.log('Session:', session);
-        
+
         if (!session?.user || !session.user.admin) {
             return NextResponse.json(
                 { message: 'Unauthorized. Admin access required.' },
@@ -26,7 +26,7 @@ export async function PATCH(
 
         const { id } = await params;
         console.log('Product ID to update:', id);
-        
+
         const body = await request.json();
         console.log('Update body:', body);
 
@@ -38,7 +38,10 @@ export async function PATCH(
             sale_price,
             images,
             sizes,
-            new_arrival
+            new_arrival,
+            meta_title,
+            meta_description,
+            slug
         } = body;
 
         // Validate required fields
@@ -59,12 +62,15 @@ export async function PATCH(
                  sale_price = $5, 
                  images = $6, 
                  sizes = $7, 
-                 new_arrival = $8
-             WHERE id = $9
+                 new_arrival = $8,
+                 meta_title = $9,
+                 meta_description = $10,
+                 slug = $11
+             WHERE id = $12
              RETURNING *`;
 
         console.log('Executing query with values:', [
-            name, category, description, price, sale_price, images, sizes, new_arrival, id
+            name, category, description, price, sale_price, images, sizes, new_arrival, meta_title, meta_description, slug, id
         ]);
 
         const result = await pool.query(query, [
@@ -73,9 +79,12 @@ export async function PATCH(
             description,
             price,
             sale_price || null,
-            images || [],
+            images ? JSON.stringify(images) : '[]',
             sizes || [],
             new_arrival || false,
+            meta_title || null,
+            meta_description || null,
+            slug || null,
             id
         ]);
 
@@ -102,7 +111,7 @@ export async function PATCH(
         console.error('Error updating product:', error);
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         console.error('Full error:', errorMessage);
-        
+
         return NextResponse.json(
             {
                 message: 'Failed to update product',
@@ -122,7 +131,7 @@ export async function DELETE(
         // Check admin authentication
         const session = await getServerSession(authOptions);
         console.log('DELETE Session:', session);
-        
+
         if (!session?.user || !session.user.admin) {
             return NextResponse.json(
                 { message: 'Unauthorized. Admin access required.' },
@@ -160,7 +169,7 @@ export async function DELETE(
         console.error('Error deleting product:', error);
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         console.error('Full error:', errorMessage);
-        
+
         return NextResponse.json(
             {
                 message: 'Failed to delete product',
