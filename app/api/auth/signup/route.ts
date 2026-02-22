@@ -59,10 +59,12 @@ export async function POST(request: NextRequest) {
             [user.email, verificationToken, expiresAt]
         );
 
-        // Send email (we don't await strictly to prevent slow signup, but we should handle it asynchronously)
-        sendVerificationEmail(user.email, verificationToken).catch(err => {
-            console.error('Failed to dispatch verification email in background:', err);
-        });
+        // Send email (we await this in production serverless environments to ensure it actually sends before the function terminates)
+        try {
+            await sendVerificationEmail(user.email, verificationToken);
+        } catch (err) {
+            console.error('Failed to dispatch verification email:', err);
+        }
 
         return NextResponse.json(
             {
